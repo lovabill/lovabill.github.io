@@ -5,14 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz Εφαρμογή</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
@@ -25,56 +21,143 @@
             background: white;
             border-radius: 20px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            max-width: 600px;
+            max-width: 620px;
             width: 100%;
             padding: 40px;
         }
 
-        h1 {
-            color: #333;
+        /* ── LOADING ── */
+        .loading {
             text-align: center;
-            margin-bottom: 30px;
-            font-size: 28px;
+            padding: 40px;
+            color: #667eea;
+            font-size: 18px;
         }
 
-        .question-container {
-            margin-bottom: 30px;
+        /* ── MENU ── */
+        #menuScreen { display: none; }
+
+        #menuScreen h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 8px;
+            font-size: 26px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 32px;
+            font-size: 14px;
+        }
+
+        .quiz-cards { display: flex; flex-direction: column; gap: 14px; }
+
+        .quiz-card {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 14px;
+            padding: 20px 22px;
+            cursor: pointer;
+            transition: all 0.22s ease;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .quiz-card:hover {
+            border-color: #667eea;
+            background: #f0f2ff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102,126,234,0.2);
+        }
+
+        .card-icon { font-size: 34px; flex-shrink: 0; }
+
+        .card-info h3 { font-size: 16px; color: #333; margin-bottom: 3px; }
+        .card-info p  { font-size: 13px; color: #999; }
+
+        .card-arrow { margin-left: auto; color: #ccc; font-size: 20px; }
+
+        /* ── QUIZ ── */
+        #quizScreen { display: none; }
+
+        .quiz-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 22px;
+        }
+
+        .back-btn {
+            flex-shrink: 0;
+            background: none;
+            border: 2px solid #e9ecef;
+            color: #666;
+            padding: 7px 14px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .back-btn:hover {
+            border-color: #667eea;
+            color: #667eea;
+            background: #f0f2ff;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .quiz-title { font-size: 17px; font-weight: 700; color: #333; }
+
+        .progress {
+            background: #e9ecef;
+            height: 8px;
+            border-radius: 10px;
+            margin-bottom: 26px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+
+        .question-counter {
+            font-size: 12px;
+            color: #aaa;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
         }
 
         .question {
-            font-size: 20px;
+            font-size: 19px;
             color: #333;
             margin-bottom: 20px;
             font-weight: 500;
+            line-height: 1.5;
         }
 
-        .options {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+        .options { display: flex; flex-direction: column; gap: 11px; }
 
         .option {
             background: #f8f9fa;
-            padding: 15px 20px;
+            padding: 14px 18px;
             border-radius: 10px;
             border: 2px solid transparent;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.25s ease;
             display: flex;
             align-items: center;
-            position: relative;
         }
 
-        .option:hover {
-            background: #e9ecef;
-            border-color: #667eea;
-        }
-
-        .option.correct {
-            background: #d4edda;
-            border-color: #28a745;
-        }
+        .option:hover { background: #e9ecef; border-color: #667eea; }
+        .option.correct { background: #d4edda; border-color: #28a745; }
 
         .option.wrong {
             background: #f8d7da;
@@ -83,47 +166,41 @@
         }
 
         @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
+            0%,100% { transform: translateX(0); }
+            25%      { transform: translateX(-10px); }
+            75%      { transform: translateX(10px); }
         }
 
         .option input[type="radio"] {
             margin-right: 12px;
-            cursor: pointer;
-            width: 18px;
-            height: 18px;
+            width: 18px; height: 18px;
             pointer-events: none;
         }
 
         .option label {
             cursor: pointer;
             flex: 1;
-            font-size: 16px;
+            font-size: 15px;
             color: #495057;
             pointer-events: none;
+            line-height: 1.4;
         }
 
         .fact {
             background: #e7f3ff;
             border-left: 4px solid #667eea;
-            padding: 15px;
+            padding: 13px 15px;
             margin-top: 15px;
             border-radius: 5px;
             font-size: 14px;
             color: #333;
+            line-height: 1.5;
             animation: slideIn 0.3s ease;
         }
 
         @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity:0; transform:translateY(-8px); }
+            to   { opacity:1; transform:translateY(0); }
         }
 
         .error-message {
@@ -138,8 +215,8 @@
 
         .button-container {
             display: flex;
-            gap: 15px;
-            margin-top: 30px;
+            gap: 12px;
+            margin-top: 26px;
         }
 
         button {
@@ -147,304 +224,356 @@
             background: #667eea;
             color: white;
             border: none;
-            padding: 15px 30px;
+            padding: 14px 22px;
             border-radius: 10px;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.25s ease;
         }
 
         button:hover {
             background: #5568d3;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 5px 15px rgba(102,126,234,0.4);
         }
 
         button:disabled {
             background: #ccc;
             cursor: not-allowed;
             transform: none;
+            box-shadow: none;
         }
 
-        .result {
+        /* ── RESULT ── */
+        #resultScreen {
+            display: none;
             text-align: center;
-            padding: 30px;
+            padding: 20px 10px;
         }
+
+        #resultScreen h2 { font-size: 26px; color: #333; margin-bottom: 6px; }
 
         .score {
-            font-size: 48px;
+            font-size: 52px;
             font-weight: bold;
             color: #667eea;
             margin: 20px 0;
         }
 
         .result-message {
-            font-size: 20px;
+            font-size: 17px;
             color: #666;
             margin-bottom: 30px;
+            line-height: 1.5;
         }
 
-        .hidden {
-            display: none;
-        }
+        .result-buttons { display: flex; gap: 12px; justify-content: center; }
+        .result-buttons button { flex: none; min-width: 150px; }
 
-        .progress {
-            background: #e9ecef;
-            height: 8px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            overflow: hidden;
-        }
-
-        .progress-bar {
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-            height: 100%;
-            transition: width 0.3s ease;
-        }
-
-        .loading {
-            text-align: center;
-            padding: 40px;
+        .btn-outline {
+            background: white;
             color: #667eea;
-            font-size: 18px;
+            border: 2px solid #667eea;
         }
+
+        .btn-outline:hover {
+            background: #f0f2ff;
+            box-shadow: 0 5px 15px rgba(102,126,234,0.2);
+        }
+
+        .hidden { display: none; }
     </style>
 </head>
 <body>
-    <div class="container">
+<div class="container">
+
+    <!-- LOADING -->
+    <div id="loadingScreen" class="loading">⏳ Φόρτωση ερωτήσεων...</div>
+
+    <!-- MENU -->
+    <div id="menuScreen">
         <h1>📝 Quiz Εφαρμογή</h1>
-        
-        <div id="loading" class="loading">
-            <p>⏳ Φόρτωση ερωτήσεων...</p>
-        </div>
+        <p class="subtitle">Επίλεξε κατηγορία για να ξεκινήσεις</p>
+        <div class="quiz-cards" id="quizCards"></div>
+    </div>
 
-        <div id="quizContainer" class="hidden">
-            <div class="progress">
-                <div id="progressBar" class="progress-bar"></div>
-            </div>
-            
-            <div id="questionArea"></div>
-            
-            <div class="button-container">
-                <button id="prevBtn" onclick="previousQuestion()" disabled>Προηγούμενο</button>
-                <button id="nextBtn" onclick="nextQuestion()">Επόμενο</button>
-                <button id="submitBtn" onclick="submitQuiz()" class="hidden">Υποβολή</button>
-            </div>
+    <!-- QUIZ -->
+    <div id="quizScreen">
+        <div class="quiz-header">
+            <button class="back-btn" onclick="goToMenu()">← Πίσω</button>
+            <span class="quiz-title" id="quizTitle"></span>
         </div>
-
-        <div id="resultContainer" class="hidden result">
-            <h2>🎉 Αποτελέσματα</h2>
-            <div class="score" id="score"></div>
-            <div class="result-message" id="resultMessage"></div>
-            <button onclick="restartQuiz()">Ξανά από την Αρχή</button>
+        <div class="progress">
+            <div id="progressBar" class="progress-bar"></div>
+        </div>
+        <div id="questionArea"></div>
+        <div class="button-container">
+            <button id="prevBtn" onclick="previousQuestion()" disabled>Προηγούμενο</button>
+            <button id="nextBtn" onclick="nextQuestion()">Επόμενο</button>
+            <button id="submitBtn" class="hidden" onclick="submitQuiz()">Υποβολή</button>
         </div>
     </div>
 
-    <script>
-        let questions = [];
-        let currentQuestion = 0;
-        let userAnswers = [];
+    <!-- RESULT -->
+    <div id="resultScreen">
+        <h2>🎉 Αποτελέσματα</h2>
+        <div class="score" id="score"></div>
+        <div class="result-message" id="resultMessage"></div>
+        <div class="result-buttons">
+            <button class="btn-outline" onclick="goToMenu()">🏠 Μενού</button>
+            <button onclick="restartQuiz()">🔄 Ξανά</button>
+        </div>
+    </div>
 
-        // Load CSV file on page load
-        window.addEventListener('DOMContentLoaded', function() {
-            loadCSV();
+</div>
+
+<script>
+// ── Icons per tab name (fallback to 📋) ──
+const TAB_ICONS = {
+    'Γονείς Νηπίων':  '👶',
+    'Γονείς Εφήβων':  '🧑‍🎓',
+};
+
+// ── State ──
+let allQuizzes   = {};   // { tabName: [questions] }
+let tabOrder     = [];   // order of tabs as found in CSV
+let activeTab    = null;
+let questions    = [];
+let currentQ     = 0;
+let userAnswers  = [];
+
+// ── Boot ──
+window.addEventListener('DOMContentLoaded', loadCSV);
+
+function loadCSV() {
+    fetch('questions.csv')
+        .then(r => {
+            if (!r.ok) throw new Error('not found');
+            return r.text();
+        })
+        .then(csv => {
+            parseCSV(csv);
+            buildMenu();
+        })
+        .catch(() => {
+            document.getElementById('loadingScreen').innerHTML =
+                '<p style="color:red">❌ Σφάλμα φόρτωσης questions.csv.<br>Βεβαιωθείτε ότι βρίσκεται στον ίδιο φάκελο.</p>';
         });
+}
 
-        function loadCSV() {
-            fetch('questions.csv')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Το αρχείο δεν βρέθηκε');
-                    }
-                    return response.text();
-                })
-                .then(csv => {
-                    parseCSV(csv);
-                    startQuiz();
-                })
-                .catch(error => {
-                    console.error('Σφάλμα φόρτωσης CSV:', error);
-                    document.getElementById('loading').innerHTML = '<p style="color: red;">❌ Σφάλμα φόρτωσης ερωτήσεων. Βεβαιωθείτε ότι το questions.csv βρίσκεται στον ίδιο φάκελο.</p>';
-                });
+// ── Parse CSV ──
+// Supports two formats:
+//   New (8 cols): Tab;Ερώτηση;Επιλογή1;Επιλογή2;Επιλογή3;Επιλογή4;Σωστή;Fact
+//   Old (7 cols): Ερώτηση;Επιλογή1;Επιλογή2;Επιλογή3;Επιλογή4;Σωστή;Fact
+function parseCSV(csv) {
+    const lines = csv.trim().split('\n');
+    allQuizzes = {};
+    tabOrder   = [];
+
+    // Detect format from header
+    const header = lines[0].split(';');
+    const hasTab = header[0].trim().toLowerCase() === 'tab';
+
+    for (let i = 1; i < lines.length; i++) {
+        const parts = lines[i].split(';');
+
+        let tab, question, options, correct, fact;
+
+        if (hasTab && parts.length >= 8) {
+            tab      = parts[0].trim();
+            question = parts[1].trim();
+            options  = [parts[2].trim(), parts[3].trim(), parts[4].trim(), parts[5].trim()];
+            correct  = parseInt(parts[6].trim());
+            fact     = parts[7].trim();
+        } else if (!hasTab && parts.length >= 7) {
+            tab      = 'Quiz';
+            question = parts[0].trim();
+            options  = [parts[1].trim(), parts[2].trim(), parts[3].trim(), parts[4].trim()];
+            correct  = parseInt(parts[5].trim());
+            fact     = parts[6].trim();
+        } else {
+            continue;
         }
 
-        function parseCSV(csv) {
-            const lines = csv.trim().split('\n');
-            questions = [];
-            
-            for (let i = 1; i < lines.length; i++) {
-                const parts = lines[i].split(';');
-                if (parts.length >= 7) {
-                    questions.push({
-                        question: parts[0].trim(),
-                        options: [
-                            parts[1].trim(),
-                            parts[2].trim(),
-                            parts[3].trim(),
-                            parts[4].trim()
-                        ],
-                        correct: parseInt(parts[5].trim()),
-                        fact: parts[6].trim()
-                    });
-                }
-            }
+        if (!allQuizzes[tab]) {
+            allQuizzes[tab] = [];
+            tabOrder.push(tab);
         }
 
-        function startQuiz() {
-            document.getElementById('loading').classList.add('hidden');
-            document.getElementById('quizContainer').classList.remove('hidden');
-            currentQuestion = 0;
-            userAnswers = new Array(questions.length).fill(null);
-            displayQuestion();
-        }
+        allQuizzes[tab].push({ question, options, correct, fact });
+    }
+}
 
-        function displayQuestion() {
-            const q = questions[currentQuestion];
-            const questionArea = document.getElementById('questionArea');
-            
-            let html = '<div class="question-container">';
-            html += `<div class="question">Ερώτηση ${currentQuestion + 1} από ${questions.length}</div>`;
-            html += `<div class="question">${q.question}</div>`;
-            html += '<div class="options">';
-            
-            q.options.forEach((option, index) => {
-                html += `
-                    <div class="option" onclick="checkAnswer(${index})" data-index="${index}">
-                        <input type="radio" id="option${index}" name="answer" value="${index}">
-                        <label for="option${index}">${option}</label>
-                    </div>
-                `;
-            });
-            
-            html += '</div>';
-            html += '<div id="feedback"></div>';
-            html += '</div>';
-            questionArea.innerHTML = html;
-            
-            updateProgress();
-            updateButtons();
-        }
+// ── Build menu ──
+function buildMenu() {
+    document.getElementById('loadingScreen').style.display = 'none';
+    document.getElementById('menuScreen').style.display = 'block';
 
-        function checkAnswer(selectedIndex) {
-            const q = questions[currentQuestion];
-            const options = document.querySelectorAll('.option');
-            const feedback = document.getElementById('feedback');
-            const selectedOption = options[selectedIndex];
-            const radio = selectedOption.querySelector('input[type="radio"]');
-            
-            // Disable all options after selection
-            options.forEach(opt => {
-                opt.style.pointerEvents = 'none';
-            });
-            
-            // Check radio
-            radio.checked = true;
-            
-            if (selectedIndex === q.correct) {
-                // Correct answer
-                selectedOption.classList.add('correct');
-                userAnswers[currentQuestion] = selectedIndex;
-                
-                feedback.innerHTML = `<div class="fact">💡 ${q.fact}</div>`;
-                
-                // Enable next button
-                document.getElementById('nextBtn').disabled = false;
-                document.getElementById('submitBtn').disabled = false;
-            } else {
-                // Wrong answer
-                selectedOption.classList.add('wrong');
-                feedback.innerHTML = `<div class="error-message">❌ Λάθος! Δοκίμασε ξανά.</div>`;
-                
-                // Re-enable options after animation
-                setTimeout(() => {
-                    selectedOption.classList.remove('wrong');
-                    options.forEach(opt => {
-                        opt.style.pointerEvents = 'auto';
-                    });
-                    radio.checked = false;
-                    feedback.innerHTML = '';
-                }, 1000);
-            }
-        }
+    const container = document.getElementById('quizCards');
+    container.innerHTML = '';
 
-        function nextQuestion() {
-            if (currentQuestion < questions.length - 1 && userAnswers[currentQuestion] !== null && userAnswers[currentQuestion] !== undefined) {
-                currentQuestion++;
-                displayQuestion();
-                
-                // Disable next/submit until correct answer
-                if (userAnswers[currentQuestion] === null || userAnswers[currentQuestion] === undefined) {
-                    document.getElementById('nextBtn').disabled = true;
-                    document.getElementById('submitBtn').disabled = true;
-                }
-            }
-        }
+    tabOrder.forEach(tab => {
+        const count = allQuizzes[tab].length;
+        const icon  = TAB_ICONS[tab] || '📋';
+        const card  = document.createElement('div');
+        card.className = 'quiz-card';
+        card.innerHTML = `
+            <span class="card-icon">${icon}</span>
+            <div class="card-info">
+                <h3>${tab}</h3>
+                <p>${count} ερωτήσεις</p>
+            </div>
+            <span class="card-arrow">›</span>
+        `;
+        card.addEventListener('click', () => startQuiz(tab));
+        container.appendChild(card);
+    });
+}
 
-        function previousQuestion() {
-            if (currentQuestion > 0) {
-                currentQuestion--;
-                displayQuestion();
-                
-                // If question was already answered, show the correct answer and fact
-                if (userAnswers[currentQuestion] !== null && userAnswers[currentQuestion] !== undefined) {
-                    const q = questions[currentQuestion];
-                    const options = document.querySelectorAll('.option');
-                    const correctOption = options[q.correct];
-                    
-                    correctOption.classList.add('correct');
-                    correctOption.querySelector('input[type="radio"]').checked = true;
-                    
-                    document.getElementById('feedback').innerHTML = `<div class="fact">💡 ${q.fact}</div>`;
-                    
-                    // Disable all options
-                    options.forEach(opt => {
-                        opt.style.pointerEvents = 'none';
-                    });
-                    
-                    document.getElementById('nextBtn').disabled = false;
-                    document.getElementById('submitBtn').disabled = false;
-                }
-            }
-        }
+// ── Start quiz ──
+function startQuiz(tab) {
+    activeTab   = tab;
+    questions   = allQuizzes[tab];
+    currentQ    = 0;
+    userAnswers = new Array(questions.length).fill(null);
 
-        function updateButtons() {
-            document.getElementById('prevBtn').disabled = currentQuestion === 0;
-            
-            // Disable next/submit if current question not answered
-            const isAnswered = userAnswers[currentQuestion] !== null && userAnswers[currentQuestion] !== undefined;
-            
-            if (currentQuestion === questions.length - 1) {
-                document.getElementById('nextBtn').classList.add('hidden');
-                document.getElementById('submitBtn').classList.remove('hidden');
-                document.getElementById('submitBtn').disabled = !isAnswered;
-            } else {
-                document.getElementById('nextBtn').classList.remove('hidden');
-                document.getElementById('submitBtn').classList.add('hidden');
-                document.getElementById('nextBtn').disabled = !isAnswered;
-            }
-        }
+    document.getElementById('menuScreen').style.display  = 'none';
+    document.getElementById('resultScreen').style.display = 'none';
+    document.getElementById('quizScreen').style.display  = 'block';
+    document.getElementById('quizTitle').textContent     = (TAB_ICONS[tab] || '📋') + ' ' + tab;
 
-        function updateProgress() {
-            const progress = ((currentQuestion + 1) / questions.length) * 100;
-            document.getElementById('progressBar').style.width = progress + '%';
-        }
+    displayQuestion();
+}
 
-        function submitQuiz() {
-            document.getElementById('quizContainer').classList.add('hidden');
-            document.getElementById('resultContainer').classList.remove('hidden');
-            document.getElementById('score').textContent = '🎉';
-            document.getElementById('resultMessage').textContent = 'Συγχαρητήρια! Ολοκλήρωσες με επιτυχία το quiz!';
-        }
+// ── Display question ──
+function displayQuestion() {
+    const q    = questions[currentQ];
+    const area = document.getElementById('questionArea');
 
-        function restartQuiz() {
-            document.getElementById('resultContainer').classList.add('hidden');
-            document.getElementById('loading').classList.remove('hidden');
-            questions = [];
-            currentQuestion = 0;
-            userAnswers = [];
-            loadCSV();
-        }
-    </script>
+    let html = `<div class="question-container">
+        <div class="question-counter">Ερώτηση ${currentQ + 1} από ${questions.length}</div>
+        <div class="question">${q.question}</div>
+        <div class="options">`;
+
+    q.options.forEach((opt, idx) => {
+        html += `
+            <div class="option" onclick="checkAnswer(${idx})" data-index="${idx}">
+                <input type="radio" id="opt${idx}" name="answer" value="${idx}">
+                <label for="opt${idx}">${opt}</label>
+            </div>`;
+    });
+
+    html += `</div><div id="feedback"></div></div>`;
+    area.innerHTML = html;
+
+    // Restore if already answered
+    if (userAnswers[currentQ] !== null) {
+        const opts = document.querySelectorAll('.option');
+        opts.forEach(o => o.style.pointerEvents = 'none');
+        opts[q.correct].classList.add('correct');
+        opts[q.correct].querySelector('input').checked = true;
+        document.getElementById('feedback').innerHTML = `<div class="fact">💡 ${q.fact}</div>`;
+    }
+
+    updateProgress();
+    updateButtons();
+}
+
+// ── Check answer ──
+function checkAnswer(selected) {
+    if (userAnswers[currentQ] !== null) return; // already answered
+
+    const q    = questions[currentQ];
+    const opts = document.querySelectorAll('.option');
+
+    opts.forEach(o => o.style.pointerEvents = 'none');
+    opts[selected].querySelector('input').checked = true;
+
+    if (selected === q.correct) {
+        opts[selected].classList.add('correct');
+        userAnswers[currentQ] = selected;
+        document.getElementById('feedback').innerHTML = `<div class="fact">💡 ${q.fact}</div>`;
+        updateButtons();
+    } else {
+        opts[selected].classList.add('wrong');
+        document.getElementById('feedback').innerHTML = `<div class="error-message">❌ Λάθος! Δοκίμασε ξανά.</div>`;
+        setTimeout(() => {
+            opts[selected].classList.remove('wrong');
+            opts[selected].querySelector('input').checked = false;
+            opts.forEach(o => o.style.pointerEvents = 'auto');
+            document.getElementById('feedback').innerHTML = '';
+        }, 1000);
+    }
+}
+
+// ── Navigation ──
+function nextQuestion() {
+    if (currentQ < questions.length - 1 && userAnswers[currentQ] !== null) {
+        currentQ++;
+        displayQuestion();
+    }
+}
+
+function previousQuestion() {
+    if (currentQ > 0) {
+        currentQ--;
+        displayQuestion();
+    }
+}
+
+function updateButtons() {
+    const answered = userAnswers[currentQ] !== null;
+    const isLast   = currentQ === questions.length - 1;
+
+    document.getElementById('prevBtn').disabled = currentQ === 0;
+
+    if (isLast) {
+        document.getElementById('nextBtn').classList.add('hidden');
+        document.getElementById('submitBtn').classList.remove('hidden');
+        document.getElementById('submitBtn').disabled = !answered;
+    } else {
+        document.getElementById('nextBtn').classList.remove('hidden');
+        document.getElementById('submitBtn').classList.add('hidden');
+        document.getElementById('nextBtn').disabled = !answered;
+    }
+}
+
+function updateProgress() {
+    const pct = ((currentQ + 1) / questions.length) * 100;
+    document.getElementById('progressBar').style.width = pct + '%';
+}
+
+// ── Submit ──
+function submitQuiz() {
+    const correct = userAnswers.filter((a, i) => a === questions[i].correct).length;
+    const total   = questions.length;
+    const pct     = Math.round((correct / total) * 100);
+
+    document.getElementById('quizScreen').style.display   = 'none';
+    document.getElementById('resultScreen').style.display = 'block';
+    document.getElementById('score').textContent          = `${correct} / ${total}`;
+
+    let msg;
+    if (pct === 100) msg = '🏆 Τέλειο! Απάντησες σωστά σε όλες τις ερωτήσεις!';
+    else if (pct >= 80) msg = '🌟 Εξαιρετικά! Πολύ καλή επίδοση!';
+    else if (pct >= 60) msg = '👍 Καλή δουλειά! Υπάρχει χώρος για βελτίωση.';
+    else msg = '💪 Συνέχισε να μαθαίνεις — ξαναπροσπάθησε!';
+
+    document.getElementById('resultMessage').textContent = msg;
+}
+
+// ── Restart same quiz ──
+function restartQuiz() {
+    startQuiz(activeTab);
+}
+
+// ── Back to menu ──
+function goToMenu() {
+    document.getElementById('quizScreen').style.display   = 'none';
+    document.getElementById('resultScreen').style.display = 'none';
+    document.getElementById('menuScreen').style.display   = 'block';
+}
+</script>
 </body>
 </html>
