@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+
+<html lang="el">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Όταν το παιδί μεγαλώσει (13+ έτη)</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f0f0;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: #ffffff;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        /* Google Colors */
+        .text-google-blue { color: #4285F4; }
+        .text-google-red { color: #EA4335; }
+        .text-google-yellow { color: #FBBC05; }
+        .text-google-green { color: #34A853; }
+        .bg-google-blue { background-color: #4285F4; }
+        .bg-google-red { background-color: #EA4335; }
+        .bg-google-yellow { background-color: #FBBC05; }
+        .bg-google-green { background-color: #34A853; }
+        .border-google-blue { border-color: #4285F4; }
+        .border-google-green { border-color: #34A853; }
+        .border-google-yellow { border-color: #FBBC05; }
+
+        .header-section {
+            padding: 40px 60px 20px 60px;
+        }
+
+        .milestone-circle {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background-color: white;
+            border: 8px solid #f1f3f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            position: relative;
+            z-index: 10;
+        }
+
+        .milestone-number {
+            font-size: 80px;
+            font-weight: 900;
+            line-height: 1;
+            background: -webkit-linear-gradient(45deg, #4285F4, #34A853);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .milestone-label {
+            font-size: 18px;
+            font-weight: 700;
+            color: #5f6368;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+
+        .connector-line {
+            position: absolute;
+            top: 50%;
+            left: 100%;
+            width: 60px;
+            height: 4px;
+            background-color: #e0e0e0;
+            transform: translateY(-50%);
+            z-index: 0;
+        }
+
+        .branch-line-top {
+            position: absolute;
+            top: 25%;
+            left: -30px;
+            width: 30px;
+            height: 50%;
+            border-top: 4px solid #e0e0e0;
+            border-left: 4px solid #e0e0e0;
+            border-radius: 16px 0 0 0;
+            z-index: 0;
+        }
+
+        .branch-line-bottom {
+            position: absolute;
+            bottom: 25%;
+            left: -30px;
+            width: 30px;
+            height: 50%;
+            border-bottom: 4px solid #e0e0e0;
+            border-left: 4px solid #e0e0e0;
+            border-radius: 0 0 0 16px;
+            z-index: 0;
+        }
+
+        .option-card {
+            background-color: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+            position: relative;
+            border-left: 6px solid;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .option-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .info-callout {
+            background-color: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            border: 1px solid #e8eaed;
+        }
+
+        .info-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 20px;
+            margin-right: 20px;
+        }
+
+        /* Confetti decoration */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f0f0f0;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Decorative Background -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-blue-50 rounded-bl-full opacity-50 z-0"></div>
+<div class="absolute bottom-0 left-0 w-48 h-48 bg-yellow-50 rounded-tr-full opacity-50 z-0"></div>
+<!-- Header -->
+<div class="header-section relative z-10">
+<h1 class="text-4xl font-black text-gray-800 mb-2">Όταν το παιδί μεγαλώσει (13+ έτη)</h1>
+<p class="text-xl text-gray-500 font-light">Τι αλλάζει στην "ψηφιακή ενηλικίωση" και ποιες είναι οι επιλογές</p>
+</div>
+<!-- Main Layout -->
+<div class="flex-1 px-16 pb-12 flex relative z-10">
+<!-- Left Column: The Milestone -->
+<div class="w-1/3 flex flex-col items-center justify-center relative pr-8">
+<!-- Confetti decorations around 13 -->
+<div class="absolute top-20 left-10 text-google-red text-xl transform -rotate-12"><i class="fas fa-star"></i></div>
+<div class="absolute bottom-32 right-10 text-google-yellow text-xl transform rotate-45"><i class="fas fa-star"></i></div>
+<div class="absolute top-32 right-4 text-google-green text-lg"><i class="fas fa-circle"></i></div>
+<div class="milestone-circle">
+<span class="milestone-number">13</span>
+<span class="milestone-label">ΕΤΩΝ</span>
+</div>
+<div class="text-center mt-8 px-4">
+<p class="text-gray-600 font-medium">Σύμφωνα με τη νομοθεσία (Ελλάδα), στα 13 έτη το παιδί αποκτά δικαίωμα για δικό του λογαριασμό Google.</p>
+</div>
+<!-- Connector to right side options -->
+<div class="absolute top-1/2 right-0 w-8 h-1 bg-gray-200 hidden md:block"></div>
+</div>
+<!-- Right Column: Options & Info -->
+<div class="w-2/3 flex flex-col justify-between pl-4">
+<!-- The Fork in the Road: Two Options -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 relative">
+<!-- Option A -->
+<div class="relative">
+<div class="branch-line-top"></div>
+<div class="option-card border-google-blue">
+<div class="flex justify-between items-start mb-4">
+<div class="bg-blue-100 p-3 rounded-lg text-google-blue">
+<i class="fas fa-user-check text-xl"></i>
+</div>
+<span class="bg-blue-50 text-blue-700 text-xs font-bold px-2 py-1 rounded uppercase">Επιλογη Α</span>
+</div>
+<h3 class="text-lg font-bold text-gray-800 mb-2">Ανεξαρτησία</h3>
+<p class="text-gray-600 text-sm leading-relaxed">
+                                Το παιδί επιλέγει να διαχειρίζεται μόνο του τον λογαριασμό του. Η γονική επίβλεψη σταματάει αυτόματα.
+                            </p>
+</div>
+</div>
+<!-- Option B -->
+<div class="relative">
+<div class="branch-line-bottom"></div>
+<div class="option-card border-google-yellow">
+<div class="flex justify-between items-start mb-4">
+<div class="bg-yellow-100 p-3 rounded-lg text-google-yellow">
+<i class="fas fa-handshake text-xl"></i>
+</div>
+<span class="bg-yellow-50 text-yellow-700 text-xs font-bold px-2 py-1 rounded uppercase">Επιλογη Β</span>
+</div>
+<h3 class="text-lg font-bold text-gray-800 mb-2">Συνέχιση Επίβλεψης</h3>
+<p class="text-gray-600 text-sm leading-relaxed">
+                                Το παιδί επιλέγει να παραμείνει υπό επίβλεψη. Απαιτείται η ρητή συγκατάθεσή του μέσω της συσκευής του.
+                            </p>
+</div>
+</div>
+</div>
+<!-- Info Callouts -->
+<div class="space-y-4">
+<!-- Info Box 1: Data Safety -->
+<div class="info-callout bg-green-50 border-green-100">
+<div class="info-icon bg-white text-google-green shadow-sm">
+<i class="fas fa-database"></i>
+</div>
+<div>
+<h4 class="text-base font-bold text-gray-800 mb-1">Τι γίνεται με τα δεδομένα;</h4>
+<p class="text-gray-600 text-sm">
+                                Το παιδί <span class="font-bold text-google-green">δεν χάνει τίποτα</span>. Το Email, οι φωτογραφίες, τα παιχνίδια και οι εφαρμογές παραμένουν άθικτα στη συσκευή του.
+                            </p>
+</div>
+</div>
+<!-- Info Box 2: Manual Control -->
+<div class="info-callout bg-gray-50 border-gray-200">
+<div class="info-icon bg-white text-gray-500 shadow-sm">
+<i class="fas fa-toggle-off"></i>
+</div>
+<div>
+<h4 class="text-base font-bold text-gray-800 mb-1">Έλεγχος Γονέα</h4>
+<p class="text-gray-600 text-sm">
+                                Ανεξάρτητα από την ηλικία, ο γονέας μπορεί να επιλέξει να σταματήσει την επίβλεψη χειροκίνητα ανά πάσα στιγμή μέσα από τις ρυθμίσεις.
+                            </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Slide Number -->
+<div class="absolute bottom-4 right-8 text-gray-400 text-xs font-medium">
+            Slide 14 / 15
+        </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+
+<html lang="el">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ώρα Ύπνου (Bedtime)</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f0f0;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: #ffffff;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        /* Google Colors */
+        .text-google-blue { color: #4285F4; }
+        .text-google-red { color: #EA4335; }
+        .text-google-yellow { color: #FBBC05; }
+        .text-google-green { color: #34A853; }
+        .bg-google-blue { background-color: #4285F4; }
+        .bg-google-red { background-color: #EA4335; }
+        .bg-google-yellow { background-color: #FBBC05; }
+        .bg-google-green { background-color: #34A853; }
+        
+        /* Header */
+        .header {
+            padding: 40px 60px 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        /* Content Layout */
+        .content-wrapper {
+            flex: 1;
+            padding: 0 60px 40px 60px;
+            display: flex;
+            gap: 50px;
+        }
+        
+        .left-column {
+            flex: 0 0 45%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .right-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+        
+        /* Schedule Cards */
+        .schedule-card {
+            background-color: #f8f9fa;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-left: 6px solid #ccc;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .schedule-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .schedule-weekdays {
+            border-left-color: #4285F4;
+            background-color: #e8f0fe;
+        }
+        
+        .schedule-weekend {
+            border-left-color: #34A853;
+            background-color: #e6f4ea;
+        }
+        
+        /* Bedtime Visual */
+        .bedtime-visual {
+            position: relative;
+            width: 100%;
+            height: 350px;
+            background-color: #202124; /* Dark Mode feel */
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        
+        .moon-icon {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            color: #FBBC05;
+            font-size: 40px;
+            opacity: 0.8;
+            animation: pulse-glow 3s infinite alternate;
+        }
+        
+        @keyframes pulse-glow {
+            from { text-shadow: 0 0 10px rgba(251, 188, 5, 0.2); }
+            to { text-shadow: 0 0 30px rgba(251, 188, 5, 0.8); }
+        }
+        
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(white 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.1;
+        }
+        
+        .timeline-container {
+            width: 90%;
+            position: relative;
+            z-index: 10;
+        }
+        
+        /* Safety Badge */
+        .safety-badge {
+            background-color: #fce8e6;
+            color: #c5221f;
+            padding: 15px 20px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+            border: 1px solid #fad2cf;
+        }
+        
+        .slide-number {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 12px;
+            color: #9aa0a6;
+        }
+        
+        /* Lock screen UI Mockup inside dark container */
+        .lock-screen-ui {
+            text-align: center;
+            color: white;
+        }
+        
+        .lock-icon-large {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #8ab4f8;
+        }
+        
+        .time-display {
+            font-size: 64px;
+            font-weight: 300;
+            margin-bottom: 10px;
+        }
+        
+        .date-display {
+            font-size: 18px;
+            opacity: 0.7;
+            margin-bottom: 40px;
+        }
+        
+        .emergency-btn {
+            background-color: transparent;
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Header -->
+<div class="header">
+<div>
+<h1 class="text-4xl font-black text-gray-800 mb-2">Ώρα Ύπνου (Bedtime)</h1>
+<p class="text-xl text-gray-500 font-light">Το κινητό "κοιμάται" πριν από το παιδί</p>
+</div>
+<div class="bg-indigo-100 p-3 rounded-full text-indigo-600">
+<i class="fas fa-bed text-2xl"></i>
+</div>
+</div>
+<!-- Content -->
+<div class="content-wrapper">
+<!-- Left Column: Settings -->
+<div class="left-column">
+<p class="text-gray-600 mb-6 leading-relaxed">
+                    Ορίστε ένα πρόγραμμα ύπνου για να κλειδώνει αυτόματα η συσκευή το βράδυ και να ξεκλειδώνει το πρωί.
+                </p>
+<!-- Weekdays Card -->
+<div class="schedule-card schedule-weekdays">
+<div class="flex justify-between items-center mb-3">
+<h3 class="font-bold text-gray-800 flex items-center">
+<i class="fas fa-calendar-day text-google-blue mr-3"></i>
+                            Δευτέρα - Παρασκευή (Σχολείο)
+                        </h3>
+<div class="bg-blue-200 text-blue-800 text-xs font-bold px-2 py-1 rounded">ΕΝΕΡΓΟ</div>
+</div>
+<div class="flex items-center justify-between text-gray-700">
+<div class="text-center">
+<p class="text-xs text-gray-500 uppercase tracking-wide">Κλείδωμα</p>
+<p class="text-2xl font-bold">21:00</p>
+</div>
+<div class="h-px bg-gray-300 flex-1 mx-4 relative">
+<i class="fas fa-moon absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-gray-400 bg-white px-1"></i>
+</div>
+<div class="text-center">
+<p class="text-xs text-gray-500 uppercase tracking-wide">Ξεκλείδωμα</p>
+<p class="text-2xl font-bold">07:00</p>
+</div>
+</div>
+</div>
+<!-- Weekend Card -->
+<div class="schedule-card schedule-weekend">
+<div class="flex justify-between items-center mb-3">
+<h3 class="font-bold text-gray-800 flex items-center">
+<i class="fas fa-umbrella-beach text-google-green mr-3"></i>
+                            Σαββατοκύριακο
+                        </h3>
+<div class="bg-green-200 text-green-800 text-xs font-bold px-2 py-1 rounded">ΕΝΕΡΓΟ</div>
+</div>
+<div class="flex items-center justify-between text-gray-700">
+<div class="text-center">
+<p class="text-xs text-gray-500 uppercase tracking-wide">Κλείδωμα</p>
+<p class="text-2xl font-bold">22:30</p>
+</div>
+<div class="h-px bg-gray-300 flex-1 mx-4 relative">
+<i class="fas fa-moon absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-gray-400 bg-white px-1"></i>
+</div>
+<div class="text-center">
+<p class="text-xs text-gray-500 uppercase tracking-wide">Ξεκλείδωμα</p>
+<p class="text-2xl font-bold">09:00</p>
+</div>
+</div>
+</div>
+<!-- Safety Note -->
+<div class="safety-badge">
+<i class="fas fa-shield-alt text-xl mr-4"></i>
+<div>
+<h4 class="font-bold text-sm uppercase">Ασφάλεια</h4>
+<p class="text-sm">
+                            Ακόμα και κλειδωμένο, το παιδί μπορεί να πατήσει "Κλήση Ανάγκης" για να σας καλέσει.
+                        </p>
+</div>
+</div>
+</div>
+<!-- Right Column: Visual -->
+<div class="right-column">
+<div class="bedtime-visual">
+<div class="stars"></div>
+<i class="fas fa-moon moon-icon"></i>
+<!-- Lock Screen UI -->
+<div class="lock-screen-ui relative z-10">
+<div class="lock-icon-large">
+<i class="fas fa-lock"></i>
+</div>
+<p class="text-lg font-medium mb-1 text-blue-200">Time for bed</p>
+<p class="text-sm text-gray-400 mb-6">Device locked by Family Link</p>
+<div class="time-display">21:05</div>
+<div class="date-display">Tue, Feb 20</div>
+<div class="mt-8">
+<div class="emergency-btn">
+<i class="fas fa-phone-alt mr-2"></i>
+                                Emergency
+                            </div>
+</div>
+</div>
+</div>
+<!-- Chart Container (Visualizing Schedule) -->
+<div class="mt-6 bg-white p-4 rounded-xl border border-gray-200 shadow-sm flex-1 relative">
+<h4 class="text-sm font-bold text-gray-600 mb-2 uppercase tracking-wider text-center">Εβδομαδιαίο Πρόγραμμα Ύπνου</h4>
+<div style="height: 120px; width: 100%;">
+<canvas id="sleepScheduleChart"></canvas>
+</div>
+</div>
+</div>
+</div>
+<div class="slide-number">Slide 11 / 15</div>
+</div>
+<script>
+        // Visualization of sleep schedule (Hours of sleep/lock time)
+        const ctx = document.getElementById('sleepScheduleChart').getContext('2d');
+        
+        // Data: Hours locked per day (24h - active hours)
+        // Mon-Fri: 21:00 to 07:00 = 10 hours locked
+        // Sat-Sun: 22:30 to 09:00 = 10.5 hours locked
+        
+        const sleepChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Δευ', 'Τρι', 'Τετ', 'Πεμ', 'Παρ', 'Σαβ', 'Κυρ'],
+                datasets: [{
+                    label: 'Ώρες Ύπνου (Κλειδωμένο)',
+                    data: [10, 10, 10, 10, 10, 10.5, 10.5],
+                    backgroundColor: [
+                        '#4285F4', '#4285F4', '#4285F4', '#4285F4', '#4285F4',
+                        '#34A853', '#34A853'
+                    ],
+                    borderRadius: 4,
+                    barThickness: 20
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.raw + ' ώρες κλειδωμένο';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 12,
+                        grid: { display: false },
+                        ticks: { display: false } // Hide y-axis numbers for cleaner look
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

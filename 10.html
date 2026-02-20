@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+
+<html lang="el">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ρύθμιση Ημερήσιου Ορίου</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f0f0;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: #ffffff;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        /* Google Colors */
+        .text-google-blue { color: #4285F4; }
+        .text-google-red { color: #EA4335; }
+        .text-google-yellow { color: #FBBC05; }
+        .text-google-green { color: #34A853; }
+        .bg-google-blue { background-color: #4285F4; }
+        .bg-google-red { background-color: #EA4335; }
+        .bg-google-yellow { background-color: #FBBC05; }
+        .bg-google-green { background-color: #34A853; }
+        
+        .main-content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            padding: 40px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Left Side Content */
+        .content-left {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-right: 40px;
+        }
+
+        /* Right Side Content */
+        .content-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-left: 40px;
+        }
+
+        /* Phone Mockup Center */
+        .phone-center-container {
+            width: 320px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .phone-mockup {
+            width: 300px;
+            height: 600px;
+            background-color: #333;
+            border-radius: 35px;
+            padding: 10px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            position: relative;
+            z-index: 20;
+            border: 4px solid #444;
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            border-radius: 28px;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 25px;
+            background-color: #333;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            z-index: 30;
+        }
+
+        /* Feature Cards */
+        .feature-card {
+            background-color: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border-left: 5px solid;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card.blue { border-left-color: #4285F4; }
+        .feature-card.green { border-left-color: #34A853; }
+        .feature-card.yellow { border-left-color: #FBBC05; }
+        .feature-card.red { border-left-color: #EA4335; }
+
+        /* Connection Lines */
+        .connection-line {
+            position: absolute;
+            height: 2px;
+            background-color: #e5e7eb;
+            z-index: 5;
+        }
+
+        .connection-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #4285F4;
+            position: absolute;
+            z-index: 15;
+        }
+
+        /* Screen UI Elements */
+        .screen-header {
+            padding: 40px 20px 20px;
+            background-color: #fff;
+        }
+        
+        .limit-control {
+            padding: 20px;
+            background-color: #f8f9fa;
+            margin: 10px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .time-display {
+            font-size: 32px;
+            font-weight: 700;
+            color: #4285F4;
+            margin: 10px 0;
+        }
+
+        .slider-mock {
+            height: 6px;
+            background-color: #e0e0e0;
+            border-radius: 3px;
+            position: relative;
+            margin: 20px 0;
+        }
+
+        .slider-thumb {
+            width: 20px;
+            height: 20px;
+            background-color: #4285F4;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 60%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .bonus-btn {
+            background-color: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 24px;
+            padding: 12px 20px;
+            color: #4285F4;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        /* Background Shapes */
+        .bg-shape {
+            position: absolute;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Background Decorative Elements -->
+<svg class="bg-shape top-0 left-0 w-full h-full opacity-5" preserveaspectratio="none" viewbox="0 0 100 100">
+<path d="M0 0 L100 0 L100 100 L0 100 Z" fill="#ffffff"></path>
+<circle cx="10" cy="10" fill="#4285F4" r="20"></circle>
+<circle cx="90" cy="90" fill="#34A853" r="30"></circle>
+</svg>
+<div class="main-content">
+<!-- Left Side: Title & Description -->
+<div class="content-left">
+<div class="mb-8">
+<p class="text-google-blue font-bold tracking-wider uppercase text-sm mb-2">ΚΑΘΗΜΕΡΙΝΟΣ ΕΛΕΓΧΟΣ</p>
+<h1 class="text-4xl font-black text-gray-800 leading-tight mb-4">Ρύθμιση Ημερήσιου Ορίου</h1>
+<p class="text-xl text-gray-600 font-light leading-relaxed">
+                        Ορίστε με ακρίβεια πόσο χρόνο μπορεί να περνάει το παιδί στην οθόνη κάθε μέρα, προσαρμόζοντας τα όρια ανάλογα με το πρόγραμμα.
+                    </p>
+</div>
+<div class="feature-card blue">
+<div class="flex items-start">
+<div class="flex-shrink-0 mt-1">
+<div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-google-blue">
+<i class="fas fa-hourglass-half text-lg"></i>
+</div>
+</div>
+<div class="ml-4">
+<h3 class="text-lg font-bold text-gray-800 mb-1">Συνολικός Χρόνος</h3>
+<p class="text-gray-600 text-sm">
+                                Ορίζουμε πόσες ώρες συνολικά μπορεί να είναι ανοιχτή η οθόνη (π.χ. 2 ώρες τις καθημερινές, 4 τα Σαββατοκύριακα).
+                            </p>
+</div>
+</div>
+</div>
+<div class="feature-card green">
+<div class="flex items-start">
+<div class="flex-shrink-0 mt-1">
+<div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-google-green">
+<i class="fas fa-gift text-lg"></i>
+</div>
+</div>
+<div class="ml-4">
+<h3 class="text-lg font-bold text-gray-800 mb-1">Έξυπνη Λειτουργία "Bonus Time"</h3>
+<p class="text-gray-600 text-sm">
+                                Αν το παιδί ήταν συνεργάσιμο, δώστε επιπλέον χρόνο (π.χ. +15 λεπτά) μόνο για σήμερα, χωρίς να αλλάξετε το μόνιμο πρόγραμμα.
+                            </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Center: Phone Mockup -->
+<div class="phone-center-container">
+<div class="phone-mockup">
+<div class="notch"></div>
+<div class="phone-screen">
+<!-- Status Bar -->
+<div class="flex justify-between px-6 pt-3 pb-2 text-xs font-medium text-gray-900">
+<span>9:41</span>
+<div class="flex space-x-1">
+<i class="fas fa-signal"></i>
+<i class="fas fa-wifi"></i>
+<i class="fas fa-battery-full"></i>
+</div>
+</div>
+<!-- App Header -->
+<div class="screen-header border-b border-gray-100">
+<div class="flex items-center justify-between mb-4">
+<i class="fas fa-arrow-left text-gray-600"></i>
+<span class="font-bold text-gray-800">Daily limit</span>
+<i class="fas fa-ellipsis-v text-gray-600"></i>
+</div>
+<div class="flex items-center justify-center">
+<div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 font-bold mr-3">
+                                    A
+                                </div>
+<span class="font-medium text-gray-700">Anna's Device</span>
+</div>
+</div>
+<!-- App Content -->
+<div class="flex-1 overflow-y-auto bg-white">
+<div class="px-6 py-4">
+<div class="flex justify-between items-center mb-6">
+<span class="font-bold text-gray-800">Schedule</span>
+<div class="w-12 h-6 bg-blue-100 rounded-full p-1 cursor-pointer">
+<div class="w-4 h-4 bg-google-blue rounded-full shadow-md transform translate-x-6"></div>
+</div>
+</div>
+<div class="space-y-4">
+<!-- Day Setting Active -->
+<div class="flex flex-col p-4 border-2 border-google-blue rounded-xl bg-blue-50">
+<div class="flex justify-between items-center mb-2">
+<span class="font-bold text-google-blue">Today</span>
+<span class="text-xs font-bold bg-white text-google-blue px-2 py-1 rounded">ACTIVE</span>
+</div>
+<div class="time-display text-center">3 hr 0 min</div>
+<div class="slider-mock bg-blue-200">
+<div class="absolute left-0 top-0 h-full bg-google-blue rounded-l-3px" style="width: 60%"></div>
+<div class="slider-thumb"></div>
+</div>
+</div>
+<!-- Bonus Time Button -->
+<div class="bonus-btn hover:bg-gray-50 cursor-pointer">
+<i class="fas fa-plus-circle mr-2"></i>
+                                        Give Bonus Time
+                                    </div>
+<!-- Other Days -->
+<div class="flex justify-between items-center p-3 border border-gray-100 rounded-lg">
+<span class="text-gray-600">Mon - Fri</span>
+<span class="font-bold text-gray-800">2 hr</span>
+</div>
+<div class="flex justify-between items-center p-3 border border-gray-100 rounded-lg">
+<span class="text-gray-600">Sat - Sun</span>
+<span class="font-bold text-gray-800">4 hr</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Callout Line for Bonus Time -->
+<div class="absolute right-0 bottom-40 w-20 h-px bg-google-green" style="transform: translateX(50%);"></div>
+<div class="absolute right-0 bottom-40 w-2 h-2 rounded-full bg-google-green" style="transform: translateX(110px);"></div>
+</div>
+<!-- Right Side: Tips & Info -->
+<div class="content-right">
+<div class="bg-yellow-50 border-l-4 border-google-yellow p-6 rounded-r-lg shadow-sm mb-6">
+<div class="flex items-start">
+<i class="fas fa-lightbulb text-google-yellow mt-1 mr-3 text-xl"></i>
+<div>
+<h4 class="font-bold text-gray-800 mb-1">Γονικό Tip</h4>
+<p class="text-gray-600 text-sm">
+                                Χρησιμοποιήστε το Bonus Time ως επιβράβευση για ολοκλήρωση εργασιών ή καλή συμπεριφορά, αντί να αλλάζετε διαρκώς το βασικό πρόγραμμα.
+                            </p>
+</div>
+</div>
+</div>
+<div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+<h4 class="font-bold text-gray-800 mb-3 flex items-center">
+<i class="fas fa-cog text-gray-400 mr-2"></i>
+                        Επιλογές Ρύθμισης
+                    </h4>
+<ul class="space-y-3">
+<li class="flex items-center text-gray-600 text-sm">
+<i class="fas fa-check text-google-green mr-3"></i>
+<span>Διαφορετικά όρια ανά ημέρα</span>
+</li>
+<li class="flex items-center text-gray-600 text-sm">
+<i class="fas fa-check text-google-green mr-3"></i>
+<span>"Locked" για ημέρες τιμωρίας</span>
+</li>
+<li class="flex items-center text-gray-600 text-sm">
+<i class="fas fa-check text-google-green mr-3"></i>
+<span>"Unlimited" για ειδικές περιστάσεις</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Slide Number -->
+<div class="absolute bottom-4 right-8 text-gray-400 text-xs font-medium">
+            Slide 10 / 15
+        </div>
+</div>
+</body>
+</html>

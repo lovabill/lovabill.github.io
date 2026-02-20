@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+
+<html lang="el">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Γιατί ο έλεγχος είναι απαραίτητος</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f0f0;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: #ffffff;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        /* Google Colors */
+        .text-google-blue { color: #4285F4; }
+        .text-google-red { color: #EA4335; }
+        .text-google-yellow { color: #FBBC05; }
+        .text-google-green { color: #34A853; }
+        .bg-google-blue { background-color: #4285F4; }
+        .bg-google-red { background-color: #EA4335; }
+        .bg-google-yellow { background-color: #FBBC05; }
+        .bg-google-green { background-color: #34A853; }
+        
+        .header-stripe {
+            height: 8px;
+            width: 100%;
+            display: flex;
+        }
+        .stripe-segment {
+            flex: 1;
+            height: 100%;
+        }
+        .content-wrapper {
+            flex: 1;
+            display: flex;
+            padding: 40px 60px;
+        }
+        .left-column {
+            flex: 0 0 55%;
+            padding-right: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .right-column {
+            flex: 0 0 45%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .chart-container {
+            width: 100%;
+            height: 350px;
+            background-color: #f8f9fa;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .quote-box {
+            background-color: #e8f0fe;
+            border-left: 5px solid #4285F4;
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 0 10px 10px 0;
+        }
+        .bullet-point {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+        }
+        .bullet-icon {
+            min-width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: white;
+            font-size: 18px;
+        }
+        .brain-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.05;
+            z-index: 0;
+            width: 400px;
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Top Colored Stripe -->
+<div class="header-stripe">
+<div class="stripe-segment bg-google-blue"></div>
+<div class="stripe-segment bg-google-red"></div>
+<div class="stripe-segment bg-google-yellow"></div>
+<div class="stripe-segment bg-google-green"></div>
+</div>
+<div class="content-wrapper">
+<!-- Left Column: Content -->
+<div class="left-column">
+<p class="text-google-blue font-bold tracking-wider uppercase text-sm mb-2">Η ΑΝΑΓΚΗ ΓΙΑ ΟΡΙΑ</p>
+<h1 class="text-4xl font-black text-gray-800 mb-6 leading-tight">Γιατί ο έλεγχος είναι απαραίτητος;</h1>
+<p class="text-xl text-gray-600 mb-8 font-light">
+                    Η πρόκληση: Τα παιδιά δεν έχουν αναπτύξει ακόμα πλήρη αυτοέλεγχο (εκτελεστικές λειτουργίες εγκεφάλου).
+                </p>
+<div class="space-y-2">
+<div class="bullet-point">
+<div class="bullet-icon bg-google-red">
+<i class="fas fa-moon"></i>
+</div>
+<div>
+<h3 class="text-xl font-bold text-gray-800 mb-1">Ύπνος</h3>
+<p class="text-gray-600">Το μπλε φως και η διέγερση εμποδίζουν τη μελατονίνη, διαταράσσοντας τον κιρκάδιο ρυθμό.</p>
+</div>
+</div>
+<div class="bullet-point">
+<div class="bullet-icon bg-google-yellow">
+<i class="fas fa-brain"></i>
+</div>
+<div>
+<h3 class="text-xl font-bold text-gray-800 mb-1">Συγκέντρωση</h3>
+<p class="text-gray-600">Η συνεχής εναλλαγή περιεχομένου μειώνει την προσοχή και τη δυνατότητα εμβάθυνσης.</p>
+</div>
+</div>
+<div class="bullet-point">
+<div class="bullet-icon bg-google-green">
+<i class="fas fa-users"></i>
+</div>
+<div>
+<h3 class="text-xl font-bold text-gray-800 mb-1">Κοινωνικοποίηση</h3>
+<p class="text-gray-600">Αντικατάσταση του πραγματικού παιχνιδιού και της επαφής με παθητική θέαση οθόνης.</p>
+</div>
+</div>
+</div>
+<div class="quote-box">
+<p class="text-google-blue font-medium italic text-lg">
+<i class="fas fa-quote-left mr-2 opacity-50"></i>
+                        Όρια και καθοδήγηση, όχι ψηφιακή απομόνωση.
+                        <i class="fas fa-quote-right ml-2 opacity-50"></i>
+</p>
+</div>
+</div>
+<!-- Right Column: Visual/Chart -->
+<div class="right-column">
+<!-- Background Decorative Icon -->
+<i class="fas fa-brain brain-bg text-gray-900"></i>
+<div class="chart-container relative z-10 flex flex-col justify-center items-center">
+<h3 class="text-lg font-bold text-gray-700 mb-4 w-full text-center">Επιπτώσεις Υπερβολικής Χρήσης</h3>
+<div style="width: 100%; height: 280px;">
+<canvas id="impactChart"></canvas>
+</div>
+</div>
+<!-- Floating Elements -->
+<div class="absolute -top-5 -right-5 bg-white p-3 rounded-full shadow-lg z-20">
+<i class="fas fa-exclamation-triangle text-google-yellow text-2xl"></i>
+</div>
+<div class="absolute bottom-10 -left-5 bg-white p-3 rounded-full shadow-lg z-20">
+<i class="fas fa-shield-alt text-google-blue text-2xl"></i>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<div class="absolute bottom-4 left-0 w-full px-16 flex justify-between items-center text-gray-400 text-xs">
+<p>Google Family Link Guide</p>
+<p>Slide 2 / 15</p>
+</div>
+</div>
+<script>
+        // Radar Chart to visualize the impact areas
+        const ctx = document.getElementById('impactChart').getContext('2d');
+        const impactChart = new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: ['Ποιότητα Ύπνου', 'Συγκέντρωση', 'Κοινωνική Επαφή', 'Σωματική Άσκηση', 'Δημιουργικότητα'],
+                datasets: [{
+                    label: 'Με Όρια (Family Link)',
+                    data: [90, 85, 80, 75, 85],
+                    fill: true,
+                    backgroundColor: 'rgba(52, 168, 83, 0.2)', // Google Green transparent
+                    borderColor: '#34A853',
+                    pointBackgroundColor: '#34A853',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#34A853'
+                }, {
+                    label: 'Χωρίς Όρια',
+                    data: [40, 30, 40, 25, 40],
+                    fill: true,
+                    backgroundColor: 'rgba(234, 67, 53, 0.2)', // Google Red transparent
+                    borderColor: '#EA4335',
+                    pointBackgroundColor: '#EA4335',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#EA4335'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                elements: {
+                    line: { borderWidth: 3 }
+                },
+                scales: {
+                    r: {
+                        angleLines: { display: true, color: '#eee' },
+                        grid: { color: '#eee' },
+                        suggestedMin: 0,
+                        suggestedMax: 100,
+                        ticks: { display: false }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: { family: "'Roboto', sans-serif", size: 12 },
+                            usePointStyle: true,
+                            boxWidth: 8
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

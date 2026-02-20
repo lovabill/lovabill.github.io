@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+
+<html lang="el">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Η δομή της Ψηφιακής Οικογένειας</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f0f0;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: #ffffff;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        /* Google Colors */
+        .text-google-blue { color: #4285F4; }
+        .text-google-red { color: #EA4335; }
+        .text-google-yellow { color: #FBBC05; }
+        .text-google-green { color: #34A853; }
+        .bg-google-blue { background-color: #4285F4; }
+        .bg-google-red { background-color: #EA4335; }
+        .bg-google-yellow { background-color: #FBBC05; }
+        .bg-google-green { background-color: #34A853; }
+        .border-google-blue { border-color: #4285F4; }
+        .border-google-green { border-color: #34A853; }
+
+        .header-section {
+            padding: 24px 60px 10px 60px;
+        }
+        
+        .content-section {
+            flex: 1;
+            display: flex;
+            padding: 0 60px 12px 60px;
+            gap: 30px;
+            align-items: stretch;
+            min-height: 0;
+        }
+
+        .role-card {
+            flex: 1;
+            background-color: #f8f9fa;
+            border-radius: 16px;
+            padding: 20px 24px;
+            position: relative;
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border-top-width: 6px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+        
+        .role-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .role-icon-wrapper {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            font-size: 24px;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .connection-line {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 4px;
+            background-color: #e0e0e0;
+            z-index: 0;
+        }
+
+        .warning-banner {
+            background-color: #FEF7E0;
+            border-left: 4px solid #FBBC05;
+            padding: 10px 20px;
+            margin-bottom: 12px;
+            border-radius: 0 8px 8px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .family-group-box {
+            margin-top: auto;
+            background-color: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Decorative dots */
+        .dot-pattern {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 100px;
+            height: 100px;
+            background-image: radial-gradient(#e0e0e0 2px, transparent 2px);
+            background-size: 10px 10px;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Header -->
+<div class="header-section">
+<h1 class="text-4xl font-black text-gray-800 mb-2">Η δομή της "Ψηφιακής Οικογένειας"</h1>
+<p class="text-xl text-gray-500 font-light">Κατανοώντας την ιεραρχία και τους ρόλους στο Google Family Link</p>
+</div>
+<!-- Warning Banner -->
+<div class="px-16">
+<div class="warning-banner shadow-sm">
+<i class="fas fa-exclamation-circle text-google-yellow text-2xl mr-4"></i>
+<p class="text-gray-700 font-medium text-lg">
+                Προσοχή: Δεν αρκούν δύο τυχαία Gmail. Η σύνδεση απαιτεί σωστή δομή Family Group.
+            </p>
+</div>
+</div>
+<!-- Main Columns -->
+<div class="content-section relative">
+<!-- Connecting visual (behind cards) -->
+<div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-0 hidden">
+<!-- Hidden primarily, visual implication is enough with side by side -->
+</div>
+<!-- Left Column: Parent -->
+<div class="role-card border-google-blue z-10">
+<div class="dot-pattern"></div>
+<div class="role-icon-wrapper bg-google-blue">
+<i class="fas fa-user-shield"></i>
+</div>
+<h2 class="text-2xl font-bold text-gray-800 mb-2">Γονέας <span class="text-google-blue text-lg font-normal">(Διαχειριστής)</span></h2>
+<p class="text-gray-600 mb-3 leading-relaxed"> Διαθέτει τον πλήρη έλεγχο και την εποπτεία.
+            </p>
+<ul class="space-y-2 mb-4">
+<p class="text-gray-700">Έχει το <strong>"κλειδί"</strong> των ρυθμίσεων</p>
+</li>
+<li class="flex items-start">
+<i class="fas fa-check-circle text-google-blue mt-1 mr-3"></i>
+<p class="text-gray-700">Εγκρίνει ή απορρίπτει εφαρμογές</p>
+</li>
+<li class="flex items-start">
+<i class="fas fa-check-circle text-google-blue mt-1 mr-3"></i>
+<p class="text-gray-700">Ορίζει τα χρονικά όρια</p>
+</li>
+</ul>
+</div>
+<!-- Right Column: Child -->
+<div class="role-card border-google-green z-10">
+<div class="dot-pattern"></div>
+<div class="role-icon-wrapper bg-google-green">
+<i class="fas fa-child"></i>
+</div>
+<h2 class="text-2xl font-bold text-gray-800 mb-2">Παιδί <span class="text-google-green text-lg font-normal">(Εποπτευόμενος)</span></h2>
+<p class="text-gray-600 mb-3 leading-relaxed">
+                Ο λογαριασμός που βρίσκεται υπό προστασία. Συνδέεται ιεραρχικά κάτω από τον γονέα.
+            </p>
+<ul class="space-y-2 mb-4">
+<li class="flex items-start">
+<i class="fas fa-check-circle text-google-green mt-1 mr-3"></i>
+<p class="text-gray-700">Συνδέεται στη συσκευή με το δικό του email</p>
+</li>
+<li class="flex items-start">
+<i class="fas fa-check-circle text-google-green mt-1 mr-3"></i>
+<p class="text-gray-700">Λαμβάνει ειδοποιήσεις για τα όρια</p>
+</li>
+<li class="flex items-start">
+<i class="fas fa-check-circle text-google-green mt-1 mr-3"></i>
+<p class="text-gray-700">Ζητάει άδεια για νέες ενέργειες</p>
+</li>
+</ul>
+</div>
+</div>
+<!-- Footer: Family Group Info -->
+<div class="px-16 pb-4">
+<div class="bg-white border-2 border-dashed border-gray-300 rounded-xl p-4 flex items-center justify-between shadow-sm">
+<div class="flex items-center">
+<div class="bg-google-red text-white p-3 rounded-lg mr-4">
+<i class="fas fa-users-cog text-xl"></i>
+</div>
+<div>
+<h3 class="text-lg font-bold text-gray-800">Το Family Group (Οικογενειακή Ομάδα)</h3>
+<p class="text-gray-600 text-sm">Δημιουργείται αυτόματα κατά τη σύνδεση.</p>
+</div>
+</div>
+<div class="h-10 w-px bg-gray-300 mx-6"></div>
+<div class="flex-1">
+<p class="text-gray-600 font-medium">
+<i class="fas fa-gift text-google-yellow mr-2"></i>
+                    Επιτρέπει κοινές αγορές, συνδρομές (YouTube Premium, Play Pass) και οικογενειακό ημερολόγιο.
+                </p>
+</div>
+</div>
+</div>
+<!-- Slide Number -->
+<div class="absolute bottom-4 right-8 text-gray-400 text-xs font-medium">
+        Slide 4 / 15
+    </div>
+</div>
+</body>
+</html>

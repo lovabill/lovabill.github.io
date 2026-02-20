@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Google Family Link – Παρουσίαση</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --g-blue: #4285F4;
+      --g-red:  #EA4335;
+      --g-yel:  #FBBC05;
+      --g-grn:  #34A853;
+      --dark:   #16213e;
+      --darker: #0f3460;
+      --panel:  #111827;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: var(--panel);
+      color: #fff;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    /* ══════════ TOP BAR ══════════ */
+    #topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 7px 16px;
+      background: var(--dark);
+      border-bottom: 1px solid var(--darker);
+      flex-shrink: 0;
+      gap: 10px;
+      z-index: 200;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    #topbar.hidden { transform: translateY(-100%); opacity: 0; pointer-events: none; position: absolute; width: 100%; }
+
+    .g-logo { display:flex; gap:1px; font-size:17px; font-weight:900; letter-spacing:-1px; white-space:nowrap; }
+    .g-b{color:var(--g-blue)} .g-r{color:var(--g-red)} .g-y{color:var(--g-yel)} .g-g{color:var(--g-grn)}
+    .g-lbl { color:#9ca3af; font-weight:400; font-size:14px; margin-left:6px; }
+
+    #slide-title {
+      font-size:12px; color:#6b7280;
+      flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+      min-width:0; max-width:320px;
+    }
+
+    .nav-cluster { display:flex; align-items:center; gap:5px; flex-shrink:0; }
+
+    .btn {
+      background: var(--darker); border:none; color:#fff;
+      border-radius:7px; width:34px; height:34px;
+      display:flex; align-items:center; justify-content:center;
+      cursor:pointer; font-size:13px;
+      transition: background 0.15s, transform 0.1s;
+      flex-shrink:0;
+    }
+    .btn:hover  { background: var(--g-blue); }
+    .btn:active { transform: scale(0.88); }
+    .btn:disabled { opacity:0.25; cursor:not-allowed; }
+    .btn:disabled:hover { background: var(--darker); }
+
+    #counter {
+      font-size:13px; font-weight:700; color:#d1d5db;
+      min-width:58px; text-align:center;
+    }
+
+    .sep { width:1px; height:22px; background:var(--darker); margin:0 3px; }
+
+    /* ══════════ PROGRESS ══════════ */
+    #prog-wrap { height:3px; background:var(--darker); flex-shrink:0; }
+    #prog-bar  { height:100%; background:linear-gradient(90deg,var(--g-blue),var(--g-grn)); transition:width 0.3s ease; }
+
+    /* ══════════ STAGE ══════════ */
+    #stage {
+      flex:1; display:flex; align-items:center; justify-content:center;
+      background:#0a0a0f; overflow:hidden; position:relative;
+    }
+
+    #frame-wrapper {
+      background:#fff;
+      box-shadow: 0 12px 60px rgba(0,0,0,0.8);
+      border-radius:3px; overflow:hidden;
+      transform-origin: center center;
+    }
+
+    #slide-frame {
+      display:block; border:none;
+      width:1280px; height:720px;
+      transform-origin: top left;
+      pointer-events: auto;
+    }
+
+    /* fade overlay for transitions */
+    #fade {
+      position:absolute; inset:0; background:#000; opacity:0;
+      pointer-events:none; transition:opacity 0.16s ease; z-index:10;
+    }
+    #fade.on { opacity:0.5; }
+
+    /* click zones left/right */
+    .click-zone {
+      position:absolute; top:0; bottom:0; width:60px;
+      z-index:5; cursor:pointer; display:flex; align-items:center; justify-content:center;
+      opacity:0; transition:opacity 0.2s;
+    }
+    #zone-left  { left:0; }
+    #zone-right { right:0; }
+    #stage:hover .click-zone { opacity:1; }
+    .click-zone i { font-size:22px; color:rgba(255,255,255,0.5); background:rgba(0,0,0,0.35); border-radius:50%; padding:10px; }
+    .click-zone:hover i { color:#fff; background:rgba(66,133,244,0.7); }
+
+    /* kbd hint */
+    #kbd-hint {
+      position:absolute; bottom:10px; left:50%; transform:translateX(-50%);
+      font-size:10px; color:#374151; white-space:nowrap; pointer-events:none;
+    }
+
+    /* ══════════ FILMSTRIP ══════════ */
+    #strip-wrap {
+      background:var(--dark); border-top:1px solid var(--darker);
+      padding:7px 14px; overflow-x:auto; display:flex; gap:8px; flex-shrink:0;
+      scrollbar-width:thin; scrollbar-color:var(--g-blue) var(--darker);
+      transition: transform 0.3s ease, opacity 0.3s ease, max-height 0.3s ease;
+      max-height: 80px;
+    }
+    #strip-wrap.hidden { transform:translateY(100%); opacity:0; pointer-events:none; max-height:0; padding:0; overflow:hidden; }
+
+    .thumb {
+      flex-shrink:0; width:90px; cursor:pointer; border-radius:5px; overflow:hidden;
+      border:2px solid transparent; transition:border-color 0.18s, transform 0.15s;
+      position:relative;
+    }
+    .thumb:hover { transform:scale(1.06); border-color:var(--g-blue); }
+    .thumb.active { border-color:var(--g-grn); }
+
+    .thumb-inner {
+      width:90px; height:51px;
+      background: linear-gradient(135deg, #1e3a5f, #0f3460);
+      display:flex; align-items:center; justify-content:center;
+      font-size:10px; color:#93c5fd; padding:4px; text-align:center; line-height:1.25;
+      font-weight:500;
+    }
+    .thumb.active .thumb-inner { background:linear-gradient(135deg,#064e3b,#065f46); color:#6ee7b7; }
+
+    .thumb-n {
+      position:absolute; bottom:2px; right:4px;
+      font-size:9px; font-weight:700; color:rgba(255,255,255,0.7);
+      background:rgba(0,0,0,0.5); padding:1px 4px; border-radius:3px;
+    }
+
+    /* ══════════ OVERVIEW MODAL ══════════ */
+    #overview {
+      display:none; position:fixed; inset:0; z-index:400;
+      background:rgba(7,10,20,0.97); overflow-y:auto; padding:36px 28px;
+    }
+    #overview.open { display:block; }
+
+    #ov-header {
+      display:flex; align-items:center; justify-content:space-between;
+      max-width:1200px; margin:0 auto 22px;
+    }
+    #ov-header h2 { font-size:18px; font-weight:700; color:#d1d5db; letter-spacing:2px; text-transform:uppercase; }
+
+    #ov-close-btn {
+      background:var(--darker); border:none; color:#fff;
+      padding:8px 20px; border-radius:7px; font-size:13px; font-weight:700;
+      cursor:pointer; transition:background 0.15s;
+    }
+    #ov-close-btn:hover { background:var(--g-blue); }
+
+    #ov-grid {
+      display:grid; grid-template-columns:repeat(auto-fill, minmax(200px,1fr));
+      gap:16px; max-width:1200px; margin:0 auto;
+    }
+    .ov-card {
+      background:#1e2a45; border-radius:9px; overflow:hidden;
+      cursor:pointer; border:2px solid transparent;
+      transition:border-color 0.18s, transform 0.18s;
+    }
+    .ov-card:hover { border-color:var(--g-blue); transform:translateY(-3px); }
+    .ov-card.active { border-color:var(--g-grn); }
+
+    .ov-thumb {
+      height:114px; background:linear-gradient(135deg,#1e3a5f,#0f3460);
+      display:flex; align-items:center; justify-content:center;
+      font-size:32px; font-weight:900; color:rgba(255,255,255,0.12);
+    }
+    .ov-card.active .ov-thumb { background:linear-gradient(135deg,#064e3b,#065f46); }
+
+    .ov-lbl {
+      padding:7px 10px; font-size:10.5px; color:#9ca3af; font-weight:500;
+      line-height:1.3;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ OVERVIEW MODAL ══ -->
+<div id="overview">
+  <div id="ov-header">
+    <h2><i class="fas fa-th" style="margin-right:8px;color:var(--g-blue)"></i>Επισκόπηση Slides</h2>
+    <button id="ov-close-btn" onclick="closeOverview()"><i class="fas fa-times" style="margin-right:5px"></i>Κλείσιμο (Esc)</button>
+  </div>
+  <div id="ov-grid"></div>
+</div>
+
+<!-- ══ TOP BAR ══ -->
+<div id="topbar">
+
+  <div style="display:flex;align-items:center;gap:8px;min-width:0;overflow:hidden;">
+    <div class="g-logo">
+      <span class="g-b">G</span><span class="g-r">o</span><span class="g-y">o</span><span class="g-b">g</span><span class="g-g">l</span><span class="g-r">e</span>
+      <span class="g-lbl">Family Link</span>
+    </div>
+    <div id="slide-title">—</div>
+  </div>
+
+  <div class="nav-cluster">
+
+    <!-- Home -->
+    <button class="btn" id="btn-home" title="Αρχικό Slide – Home" onclick="goTo(0)">
+      <i class="fas fa-home"></i>
+    </button>
+
+    <div class="sep"></div>
+
+    <!-- Prev -->
+    <button class="btn" id="btn-prev" title="Προηγούμενο – ←" onclick="prev()">
+      <i class="fas fa-chevron-left"></i>
+    </button>
+
+    <div id="counter">1 / 15</div>
+
+    <!-- Next -->
+    <button class="btn" id="btn-next" title="Επόμενο – →" onclick="next()">
+      <i class="fas fa-chevron-right"></i>
+    </button>
+
+    <div class="sep"></div>
+
+    <!-- Overview grid -->
+    <button class="btn" title="Επισκόπηση – G" onclick="openOverview()">
+      <i class="fas fa-th"></i>
+    </button>
+
+    <!-- Filmstrip -->
+    <button class="btn" id="btn-strip" title="Filmstrip – F" onclick="toggleStrip()">
+      <i class="fas fa-film"></i>
+    </button>
+
+    <!-- Hide UI -->
+    <button class="btn" id="btn-ui" title="Απόκρυψη UI – H" onclick="toggleUI()">
+      <i class="fas fa-eye-slash"></i>
+    </button>
+
+    <!-- Fullscreen -->
+    <button class="btn" id="btn-fs" title="Πλήρης Οθόνη – Space" onclick="toggleFullscreen()">
+      <i class="fas fa-expand"></i>
+    </button>
+
+  </div>
+</div>
+
+<!-- ══ PROGRESS BAR ══ -->
+<div id="prog-wrap"><div id="prog-bar" style="width:6.67%"></div></div>
+
+<!-- ══ STAGE ══ -->
+<div id="stage">
+  <div id="fade"></div>
+
+  <!-- left click zone -->
+  <div class="click-zone" id="zone-left" onclick="prev()">
+    <i class="fas fa-chevron-left"></i>
+  </div>
+
+  <div id="frame-wrapper">
+    <iframe id="slide-frame" src="" scrolling="no" allowfullscreen></iframe>
+  </div>
+
+  <!-- right click zone -->
+  <div class="click-zone" id="zone-right" onclick="next()">
+    <i class="fas fa-chevron-right"></i>
+  </div>
+
+  <div id="kbd-hint">← → Πλοήγηση &nbsp;·&nbsp; Space = Fullscreen &nbsp;·&nbsp; G = Επισκόπηση &nbsp;·&nbsp; H = Απόκρυψη UI</div>
+</div>
+
+<!-- ══ FILMSTRIP ══ -->
+<div id="strip-wrap"></div>
+
+<script>
+/* ─────────────────────────────────────────
+   SLIDES CONFIG
+───────────────────────────────────────── */
+const SLIDES = [
+  { file:'1.html',  title:'Τίτλος – Πώς ελέγχουμε το κινητό Android του παιδιού' },
+  { file:'2.html',  title:'Γιατί ο έλεγχος είναι απαραίτητος;' },
+  { file:'3.html',  title:'Τι μας προσφέρει το Family Link;' },
+  { file:'4.html',  title:'Η δομή της "Ψηφιακής Οικογένειας"' },
+  { file:'5.html',  title:'Πώς ξεκινάμε – Οι 2 δρόμοι' },
+  { file:'6.html',  title:'Checklist Πριν Ξεκινήσετε' },
+  { file:'7.html',  title:'Εγκατάσταση & Πρώτα Βήματα' },
+  { file:'8.html',  title:'Δημιουργία Λογαριασμού Παιδιού' },
+  { file:'9.html',  title:'Σύνδεση των Συσκευών (Pairing)' },
+  { file:'10.html', title:'Ρύθμιση Ημερήσιου Ορίου (Daily Limit)' },
+  { file:'11.html', title:'Ώρα Ύπνου (Bedtime)' },
+  { file:'12.html', title:'Έγκριση Εφαρμογών & Φίλτρα' },
+  { file:'13.html', title:'Άμεσο Κλείδωμα (Lock Now)' },
+  { file:'14.html', title:'Όταν το παιδί μεγαλώσει (13+ έτη)' },
+  { file:'15.html', title:'Συμπέρασμα & Συμβουλή' },
+];
+
+const N = SLIDES.length;
+let current      = 0;
+let uiVisible    = true;
+let stripVisible = true;
+let inTransition = false;
+
+/* DOM */
+const frame     = document.getElementById('slide-frame');
+const counter   = document.getElementById('counter');
+const progBar   = document.getElementById('prog-bar');
+const titleEl   = document.getElementById('slide-title');
+const topbar    = document.getElementById('topbar');
+const stripWrap = document.getElementById('strip-wrap');
+const fadeEl    = document.getElementById('fade');
+const wrapper   = document.getElementById('frame-wrapper');
+const stage     = document.getElementById('stage');
+const btnPrev   = document.getElementById('btn-prev');
+const btnNext   = document.getElementById('btn-next');
+const overview  = document.getElementById('overview');
+const ovGrid    = document.getElementById('ov-grid');
+const zoneL     = document.getElementById('zone-left');
+const zoneR     = document.getElementById('zone-right');
+
+/* ─── Build filmstrip & overview grid ─── */
+SLIDES.forEach((s, i) => {
+  // filmstrip
+  const t = document.createElement('div');
+  t.className = 'thumb' + (i === 0 ? ' active' : '');
+  t.title = `${i+1}. ${s.title}`;
+  t.innerHTML = `<div class="thumb-inner">${i+1}.<br>${s.title.split('–')[0].trim()}</div>
+                 <div class="thumb-n">${i+1}</div>`;
+  t.onclick = () => goTo(i);
+  stripWrap.appendChild(t);
+
+  // overview
+  const c = document.createElement('div');
+  c.className = 'ov-card' + (i === 0 ? ' active' : '');
+  c.innerHTML = `<div class="ov-thumb">${i+1}</div>
+                 <div class="ov-lbl">${i+1}. ${s.title}</div>`;
+  c.onclick = () => { goTo(i); closeOverview(); };
+  ovGrid.appendChild(c);
+});
+
+/* ─── Scale iframe to fit stage ─── */
+function scaleSlide() {
+  const sw = stage.clientWidth  - 16;
+  const sh = stage.clientHeight - 16;
+  const scale = Math.min(sw / 1280, sh / 720);
+  const fw = Math.round(1280 * scale);
+  const fh = Math.round(720  * scale);
+  wrapper.style.width  = fw + 'px';
+  wrapper.style.height = fh + 'px';
+  frame.style.transform = `scale(${scale})`;
+}
+new ResizeObserver(scaleSlide).observe(stage);
+scaleSlide();
+
+/* ─── Navigation ─── */
+function goTo(idx) {
+  if (inTransition || idx < 0 || idx >= N || idx === current) return;
+  inTransition = true;
+  fadeEl.classList.add('on');
+  setTimeout(() => {
+    current = idx;
+    frame.src = SLIDES[idx].file;
+    syncUI();
+    setTimeout(() => {
+      fadeEl.classList.remove('on');
+      inTransition = false;
+    }, 80);
+  }, 160);
+}
+
+function prev() { goTo(current - 1); }
+function next() { goTo(current + 1); }
+
+function syncUI() {
+  const n = current + 1;
+  counter.textContent  = `${n} / ${N}`;
+  progBar.style.width  = `${(n / N) * 100}%`;
+  titleEl.textContent  = SLIDES[current].title;
+  btnPrev.disabled     = current === 0;
+  btnNext.disabled     = current === N - 1;
+  zoneL.style.opacity  = current === 0     ? '0' : '';
+  zoneR.style.opacity  = current === N - 1 ? '0' : '';
+
+  // filmstrip
+  document.querySelectorAll('.thumb').forEach((t, i) => t.classList.toggle('active', i === current));
+  const activeThumb = stripWrap.querySelectorAll('.thumb')[current];
+  if (activeThumb) activeThumb.scrollIntoView({ behavior:'smooth', block:'nearest', inline:'center' });
+
+  // overview
+  document.querySelectorAll('.ov-card').forEach((c, i) => c.classList.toggle('active', i === current));
+}
+
+/* ─── UI toggles ─── */
+function toggleUI() {
+  uiVisible = !uiVisible;
+  topbar.classList.toggle('hidden', !uiVisible);
+  // also hide/show strip when UI hidden
+  if (!uiVisible) stripWrap.classList.add('hidden');
+  else if (stripVisible) stripWrap.classList.remove('hidden');
+  document.getElementById('btn-ui').innerHTML = uiVisible
+    ? '<i class="fas fa-eye-slash"></i>'
+    : '<i class="fas fa-eye"></i>';
+}
+
+function toggleStrip() {
+  stripVisible = !stripVisible;
+  stripWrap.classList.toggle('hidden', !stripVisible);
+  document.getElementById('btn-strip').innerHTML = stripVisible
+    ? '<i class="fas fa-film"></i>'
+    : '<i class="fas fa-grip-lines"></i>';
+}
+
+function toggleFullscreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch(() => {});
+  } else {
+    document.exitFullscreen().catch(() => {});
+  }
+}
+
+document.addEventListener('fullscreenchange', () => {
+  document.getElementById('btn-fs').innerHTML = document.fullscreenElement
+    ? '<i class="fas fa-compress"></i>'
+    : '<i class="fas fa-expand"></i>';
+});
+
+/* ─── Overview ─── */
+function openOverview()  { overview.classList.add('open'); }
+function closeOverview() { overview.classList.remove('open'); }
+
+/* ─── Keyboard ─── */
+document.addEventListener('keydown', e => {
+  if (overview.classList.contains('open')) {
+    if (e.key === 'Escape') closeOverview();
+    return;
+  }
+  switch (e.key) {
+    case 'ArrowRight': case 'ArrowDown': case 'PageDown': e.preventDefault(); next(); break;
+    case 'ArrowLeft':  case 'ArrowUp':   case 'PageUp':   e.preventDefault(); prev(); break;
+    case 'Home': e.preventDefault(); goTo(0);     break;
+    case 'End':  e.preventDefault(); goTo(N - 1); break;
+    case ' ':    e.preventDefault(); toggleFullscreen(); break;
+    case 'f': case 'F': toggleStrip();   break;
+    case 'g': case 'G': openOverview();  break;
+    case 'h': case 'H': toggleUI();      break;
+    case 'Escape': if (document.fullscreenElement) document.exitFullscreen(); break;
+  }
+});
+
+/* ─── Touch / swipe ─── */
+let tx0 = null;
+stage.addEventListener('touchstart', e => { tx0 = e.touches[0].clientX; }, { passive:true });
+stage.addEventListener('touchend',   e => {
+  if (tx0 === null) return;
+  const dx = e.changedTouches[0].clientX - tx0;
+  if (Math.abs(dx) > 45) dx < 0 ? next() : prev();
+  tx0 = null;
+}, { passive:true });
+
+/* ─── Double-click stage = fullscreen ─── */
+stage.addEventListener('dblclick', e => {
+  if (!e.target.closest('.click-zone')) toggleFullscreen();
+});
+
+/* ─── Init ─── */
+(function init() {
+  frame.src = SLIDES[0].file;
+  syncUI();
+})();
+</script>
+</body>
+</html>

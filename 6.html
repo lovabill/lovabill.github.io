@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+
+<html lang="el">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Checklist Πριν Ξεκινήσετε</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f0f0;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: #ffffff;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        /* Google Colors */
+        .text-google-blue { color: #4285F4; }
+        .text-google-red { color: #EA4335; }
+        .text-google-yellow { color: #FBBC05; }
+        .text-google-green { color: #34A853; }
+        .bg-google-blue { background-color: #4285F4; }
+        .bg-google-red { background-color: #EA4335; }
+        .bg-google-yellow { background-color: #FBBC05; }
+        .bg-google-green { background-color: #34A853; }
+        
+        .header-section {
+            padding: 40px 60px 20px 60px;
+            border-bottom: 2px solid #f1f3f4;
+        }
+        
+        .content-section {
+            flex: 1;
+            padding: 40px 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .checklist-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            width: 100%;
+        }
+
+        .checklist-item {
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 16px;
+            padding: 25px;
+            display: flex;
+            align-items: flex-start;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .checklist-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            border-color: #d2e3fc;
+        }
+
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            flex-shrink: 0;
+            font-size: 28px;
+        }
+
+        .check-mark {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .checklist-item:hover .check-mark {
+            background-color: #34A853;
+            border-color: #34A853;
+        }
+        
+        .progress-bar-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background-color: #f1f3f4;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0;
+            transition: width 1s ease-out;
+        }
+
+        /* Animated background elements */
+        .bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.05;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Background Elements -->
+<div class="bg-circle bg-google-blue w-96 h-96 -top-20 -right-20"></div>
+<div class="bg-circle bg-google-yellow w-64 h-64 bottom-10 left-10"></div>
+<!-- Header -->
+<div class="header-section relative z-10">
+<div class="flex items-center">
+<div class="bg-google-green text-white p-3 rounded-lg mr-4 shadow-md">
+<i class="fas fa-clipboard-check text-2xl"></i>
+</div>
+<div>
+<h1 class="text-4xl font-black text-gray-800 mb-1">Checklist Πριν Ξεκινήσετε</h1>
+<p class="text-xl text-gray-500 font-light">Βεβαιωθείτε ότι έχετε τα παρακάτω έτοιμα για μια ομαλή εγκατάσταση</p>
+</div>
+</div>
+</div>
+<!-- Main Content -->
+<div class="content-section relative z-10">
+<div class="checklist-grid">
+<!-- Item 1: Parent Device -->
+<div class="checklist-item">
+<div class="icon-box bg-blue-50 text-google-blue">
+<i class="fas fa-mobile-alt"></i>
+</div>
+<div class="flex-1">
+<h3 class="text-xl font-bold text-gray-800 mb-2">Το κινητό του γονέα</h3>
+<p class="text-gray-600 text-sm leading-relaxed">
+                            Μια συσκευή Android (έκδοση 5.0+) ή iPhone (iOS 11+) για να εγκαταστήσετε την εφαρμογή διαχείρισης.
+                        </p>
+</div>
+<div class="check-mark">
+<i class="fas fa-check text-xs"></i>
+</div>
+<div class="progress-bar-container">
+<div class="progress-bar bg-google-blue" style="width: 100%"></div>
+</div>
+</div>
+<!-- Item 2: Child Device -->
+<div class="checklist-item">
+<div class="icon-box bg-green-50 text-google-green">
+<i class="fab fa-android"></i>
+</div>
+<div class="flex-1">
+<h3 class="text-xl font-bold text-gray-800 mb-2">Το κινητό/tablet του παιδιού</h3>
+<p class="text-gray-600 text-sm leading-relaxed">
+                            Μια συσκευή Android (έκδοση 7.0+) που θα ελέγχεται. Βεβαιωθείτε ότι είναι φορτισμένη.
+                        </p>
+</div>
+<div class="check-mark">
+<i class="fas fa-check text-xs"></i>
+</div>
+<div class="progress-bar-container">
+<div class="progress-bar bg-google-green" style="width: 100%"></div>
+</div>
+</div>
+<!-- Item 3: Wi-Fi -->
+<div class="checklist-item">
+<div class="icon-box bg-yellow-50 text-google-yellow">
+<i class="fas fa-wifi"></i>
+</div>
+<div class="flex-1">
+<h3 class="text-xl font-bold text-gray-800 mb-2">Ισχυρό Wi-Fi</h3>
+<p class="text-gray-600 text-sm leading-relaxed">
+                            Θα χρειαστούν πολλές ενημερώσεις εφαρμογών και συγχρονισμός δεδομένων κατά την αρχική ρύθμιση.
+                        </p>
+</div>
+<div class="check-mark">
+<i class="fas fa-check text-xs"></i>
+</div>
+<div class="progress-bar-container">
+<div class="progress-bar bg-google-yellow" style="width: 100%"></div>
+</div>
+</div>
+<!-- Item 4: Payment Method -->
+<div class="checklist-item">
+<div class="icon-box bg-red-50 text-google-red">
+<i class="fas fa-credit-card"></i>
+</div>
+<div class="flex-1">
+<h3 class="text-xl font-bold text-gray-800 mb-2">Πιστωτική/Χρεωστική κάρτα</h3>
+<p class="text-gray-600 text-sm leading-relaxed">
+                            Η Google ζητάει μια τυπική επιβεβαίωση (0€) για να βεβαιωθεί ότι ο γονέας είναι ενήλικας (CIPA law).
+                        </p>
+</div>
+<div class="check-mark">
+<i class="fas fa-check text-xs"></i>
+</div>
+<div class="progress-bar-container">
+<div class="progress-bar bg-google-red" style="width: 100%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Tip -->
+<div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-6 py-2 rounded-full shadow-lg flex items-center space-x-3 z-20">
+<i class="fas fa-lightbulb text-google-yellow"></i>
+<span class="text-sm font-medium">Tip: Έχετε τους κωδικούς Google (Gmail) πρόχειρους!</span>
+</div>
+<!-- Slide Number -->
+<div class="absolute bottom-4 right-8 text-gray-400 text-xs font-medium">
+            Slide 6 / 15
+        </div>
+</div>
+</body>
+</html>

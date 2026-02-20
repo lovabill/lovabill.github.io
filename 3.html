@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+
+<html lang="el">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Τι μας προσφέρει το Family Link;</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f0f0;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: #ffffff;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        /* Google Colors */
+        .text-google-blue { color: #4285F4; }
+        .text-google-red { color: #EA4335; }
+        .text-google-yellow { color: #FBBC05; }
+        .text-google-green { color: #34A853; }
+        .bg-google-blue { background-color: #4285F4; }
+        .bg-google-red { background-color: #EA4335; }
+        .bg-google-yellow { background-color: #FBBC05; }
+        .bg-google-green { background-color: #34A853; }
+        .bg-google-gray { background-color: #f1f3f4; }
+        
+        .header-stripe {
+            height: 8px;
+            width: 100%;
+            display: flex;
+            flex-shrink: 0;
+        }
+        .stripe-segment {
+            flex: 1;
+            height: 100%;
+        }
+        .content-wrapper {
+            flex: 1;
+            display: flex;
+            padding: 40px 60px;
+            overflow: hidden;
+        }
+        .left-column {
+            flex: 0 0 55%;
+            padding-right: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .right-column {
+            flex: 0 0 45%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        /* Typography & List Styling */
+        .bullet-point {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+            background-color: white;
+            border-radius: 12px;
+            padding: 10px;
+            transition: transform 0.2s ease;
+        }
+        .bullet-point:hover {
+            transform: translateX(5px);
+            background-color: #f8f9fa;
+        }
+        .bullet-icon {
+            min-width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            color: white;
+            font-size: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        /* Phone Mockup */
+        .phone-mockup {
+            width: 260px;
+            height: 520px;
+            background-color: #202124;
+            border-radius: 36px;
+            border: 8px solid #202124;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            z-index: 10;
+        }
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+            border-radius: 28px;
+            overflow: hidden;
+            position: relative;
+            background-image: url("ea64d670a2762585f1f6f45211559102.webp");
+            background-size: cover;
+            background-position: center;
+        }
+        .phone-notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 24px;
+            background-color: #202124;
+            border-bottom-left-radius: 16px;
+            border-bottom-right-radius: 16px;
+            z-index: 20;
+        }
+        
+        /* Decorative Elements */
+        .circle-bg {
+            position: absolute;
+            border-radius: 50%;
+            z-index: 0;
+        }
+        .circle-1 {
+            width: 400px;
+            height: 400px;
+            background-color: #E8F0FE; /* Light Blue */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .icon-float {
+            position: absolute;
+            background: white;
+            padding: 12px;
+            border-radius: 50%;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            z-index: 15;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Top Colored Stripe -->
+<div class="header-stripe">
+<div class="stripe-segment bg-google-blue"></div>
+<div class="stripe-segment bg-google-red"></div>
+<div class="stripe-segment bg-google-yellow"></div>
+<div class="stripe-segment bg-google-green"></div>
+</div>
+<div class="content-wrapper">
+<!-- Left Column: Content -->
+<div class="left-column">
+<p class="text-google-blue font-bold tracking-wider uppercase text-sm mb-2">ΛΕΙΤΟΥΡΓΙΕΣ &amp; ΔΥΝΑΤΟΤΗΤΕΣ</p>
+<h1 class="text-4xl font-black text-gray-800 mb-8 leading-tight">Τι μας προσφέρει το Family Link;</h1>
+<div class="space-y-1">
+<!-- Item 1: Supervision -->
+<div class="bullet-point">
+<div class="bullet-icon bg-google-blue">
+<i class="fas fa-chart-pie"></i>
+</div>
+<div>
+<h3 class="text-xl font-bold text-gray-800 mb-1">Επίβλεψη</h3>
+<p class="text-gray-600 leading-snug">Αναλυτικά στατιστικά χρήσης ανά εφαρμογή για να γνωρίζετε τα ενδιαφέροντά τους.</p>
+</div>
+</div>
+<!-- Item 2: Restrictions -->
+<div class="bullet-point">
+<div class="bullet-icon bg-google-red">
+<i class="fas fa-hourglass-half"></i>
+</div>
+<div>
+<h3 class="text-xl font-bold text-gray-800 mb-1">Περιορισμοί</h3>
+<p class="text-gray-600 leading-snug">Ημερήσιο όριο χρήσης και ώρα ύπνου για ισορροπημένη καθημερινότητα.</p>
+</div>
+</div>
+<!-- Item 3: Security -->
+<div class="bullet-point">
+<div class="bullet-icon bg-google-green">
+<i class="fas fa-shield-alt"></i>
+</div>
+<div>
+<h3 class="text-xl font-bold text-gray-800 mb-1">Ασφάλεια</h3>
+<p class="text-gray-600 leading-snug">Έγκριση νέων εφαρμογών πριν την εγκατάσταση και φίλτρα περιεχομένου.</p>
+</div>
+</div>
+<!-- Item 4: Location -->
+<div class="bullet-point">
+<div class="bullet-icon bg-google-yellow">
+<i class="fas fa-map-marker-alt"></i>
+</div>
+<div>
+<h3 class="text-xl font-bold text-gray-800 mb-1">Εντοπισμός</h3>
+<p class="text-gray-600 leading-snug">Δείτε πού βρίσκεται η συσκευή του παιδιού σε πραγματικό χρόνο στον χάρτη.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Visual -->
+<div class="right-column">
+<!-- Background Circle -->
+<div class="circle-bg circle-1"></div>
+<!-- Phone Mockup -->
+<div class="phone-mockup">
+<div class="phone-notch"></div>
+<div class="phone-screen">
+<!-- Screen content is set via background-image in CSS -->
+<div class="absolute bottom-0 w-full h-24 bg-gradient-to-t from-black opacity-40"></div>
+</div>
+</div>
+<!-- Floating Icons -->
+<div class="icon-float" style="top: 20%; right: 10%;">
+<i class="fas fa-check text-google-green text-xl"></i>
+</div>
+<div class="icon-float" style="bottom: 25%; left: 10%;">
+<i class="fas fa-lock text-google-blue text-xl"></i>
+</div>
+<div class="icon-float" style="top: 50%; right: 5%;">
+<i class="fas fa-clock text-google-red text-xl"></i>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<div class="absolute bottom-4 left-0 w-full px-16 flex justify-between items-center text-gray-400 text-xs">
+<p>Google Family Link Guide</p>
+<p>Slide 3 / 15</p>
+</div>
+</div>
+</body>
+</html>
+

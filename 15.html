@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+
+<html lang="el">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Συμπέρασμα &amp; Συμβουλή</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f0f0;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: #ffffff;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+        }
+        /* Google Colors */
+        .text-google-blue { color: #4285F4; }
+        .text-google-red { color: #EA4335; }
+        .text-google-yellow { color: #FBBC05; }
+        .text-google-green { color: #34A853; }
+        .bg-google-blue { background-color: #4285F4; }
+        .bg-google-red { background-color: #EA4335; }
+        .bg-google-yellow { background-color: #FBBC05; }
+        .bg-google-green { background-color: #34A853; }
+        
+        /* Layout */
+        .left-content {
+            flex: 0 0 60%;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            z-index: 10;
+        }
+        
+        .right-content {
+            flex: 0 0 40%;
+            background-color: #f8f9fa;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-left: 1px solid #eee;
+        }
+
+        /* Advice Cards */
+        .advice-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 20px 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            transition: transform 0.2s ease;
+            border-left-width: 6px;
+        }
+        
+        .advice-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+        
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        /* CTA Section */
+        .cta-box {
+            background-color: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(66, 133, 244, 0.15);
+            width: 80%;
+            position: relative;
+            z-index: 20;
+        }
+        
+        .cta-button {
+            background-color: #4285F4;
+            color: white;
+            font-weight: 700;
+            padding: 15px 30px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-top: 20px;
+            box-shadow: 0 4px 10px rgba(66, 133, 244, 0.3);
+            font-size: 18px;
+        }
+
+        /* Decorative Shapes */
+        .shape-circle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+        }
+        
+        .dots-pattern {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-image: radial-gradient(#ccc 2px, transparent 2px);
+            background-size: 10px 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Decorative Background Elements -->
+<div class="shape-circle bg-google-blue w-64 h-64 -top-10 -left-10"></div>
+<div class="shape-circle bg-google-green w-40 h-40 bottom-10 left-1/2 transform -translate-x-1/2"></div>
+<!-- Left Column: Summary & Advice -->
+<div class="left-content">
+<div class="mb-8">
+<p class="text-google-blue font-bold tracking-wider uppercase text-sm mb-2">ΣΥΜΠΕΡΑΣΜΑ</p>
+<h1 class="text-5xl font-black text-gray-800 leading-tight mb-2">Συμπέρασμα &amp; Συμβουλή</h1>
+<p class="text-xl text-gray-500 font-light">Χτίζοντας μια υγιή ψηφιακή σχέση με το παιδί</p>
+</div>
+<div class="space-y-4">
+<!-- Point 1 -->
+<div class="advice-card" style="border-left-color: #4285F4;">
+<div class="card-icon bg-blue-50 text-google-blue">
+<i class="fas fa-tools"></i>
+</div>
+<div>
+<h3 class="text-lg font-bold text-gray-800 mb-1">Εργαλείο, όχι Αστυνόμος</h3>
+<p class="text-gray-600 text-sm">Το Family Link είναι βοήθημα για την οικογένεια, όχι μέσο τιμωρίας.</p>
+</div>
+</div>
+<!-- Point 2 -->
+<div class="advice-card" style="border-left-color: #EA4335;">
+<div class="card-icon bg-red-50 text-google-red">
+<i class="fas fa-comments"></i>
+</div>
+<div>
+<h3 class="text-lg font-bold text-gray-800 mb-1">Συζήτηση στο Τραπέζι</h3>
+<p class="text-gray-600 text-sm">Η ψηφιακή ασφάλεια ξεκινάει με διάλογο, όχι με απαγορεύσεις.</p>
+</div>
+</div>
+<!-- Point 3 -->
+<div class="advice-card" style="border-left-color: #FBBC05;">
+<div class="card-icon bg-yellow-50 text-google-yellow">
+<i class="fas fa-lightbulb"></i>
+</div>
+<div>
+<h3 class="text-lg font-bold text-gray-800 mb-1">Εξήγηση Κανόνων</h3>
+<p class="text-gray-600 text-sm">Εξηγήστε στο παιδί το "γιατί" πίσω από κάθε όριο που θέτετε.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Call to Action -->
+<div class="right-content">
+<!-- Background Decorations -->
+<div class="dots-pattern top-10 right-10"></div>
+<div class="dots-pattern bottom-10 left-10"></div>
+<div class="shape-circle bg-google-yellow w-32 h-32 top-1/4 right-0 transform translate-x-1/2"></div>
+<div class="cta-box">
+<div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+<i class="fas fa-rocket text-google-green text-3xl"></i>
+</div>
+<h2 class="text-2xl font-black text-gray-800 mb-4">Είστε έτοιμοι;</h2>
+<p class="text-gray-600 mb-6 leading-relaxed">
+                    Έχετε πλέον όλες τις γνώσεις για να ξεκινήσετε. Πάρτε τις συσκευές και κάντε το πρώτο βήμα!
+                </p>
+<div class="cta-button">
+<i class="fas fa-play mr-2"></i> Ας ξεκινήσουμε!
+                </div>
+</div>
+<!-- Footer Quote -->
+<div class="absolute bottom-10 px-10 text-center">
+<p class="text-gray-400 italic text-sm">Vasilis L.</p>
+</div>
+</div>
+<!-- Slide Number -->
+<div class="absolute bottom-4 left-8 text-gray-400 text-xs font-medium">
+            Slide 15 / 15
+        </div>
+</div>
+</body>
+</html>

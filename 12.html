@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+
+<html lang="el">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Έγκριση Εφαρμογών &amp; Φίλτρα</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f0f0;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: #ffffff;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        /* Google Colors */
+        .text-google-blue { color: #4285F4; }
+        .text-google-red { color: #EA4335; }
+        .text-google-yellow { color: #FBBC05; }
+        .text-google-green { color: #34A853; }
+        .bg-google-blue { background-color: #4285F4; }
+        .bg-google-red { background-color: #EA4335; }
+        .bg-google-yellow { background-color: #FBBC05; }
+        .bg-google-green { background-color: #34A853; }
+        .bg-google-gray { background-color: #f1f3f4; }
+        
+        .main-content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            padding: 40px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Left Side Content */
+        .content-left {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-right: 40px;
+        }
+
+        /* Right Side Content */
+        .content-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-left: 40px;
+        }
+
+        /* Phone Mockup Center */
+        .phone-center-container {
+            width: 320px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .phone-mockup {
+            width: 300px;
+            height: 600px;
+            background-color: #333;
+            border-radius: 35px;
+            padding: 10px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            position: relative;
+            z-index: 20;
+            border: 4px solid #444;
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background-color: #f8f9fa;
+            border-radius: 28px;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 25px;
+            background-color: #333;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            z-index: 30;
+        }
+
+        /* Feature Cards */
+        .feature-card {
+            background-color: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border-left: 5px solid;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card.blue { border-left-color: #4285F4; }
+        .feature-card.red { border-left-color: #EA4335; }
+
+        /* Screen UI Elements */
+        .screen-header {
+            padding: 40px 20px 20px;
+            background-color: #fff;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .app-request-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 16px;
+            margin: 16px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border: 1px solid #e0e0e0;
+        }
+
+        .app-icon-placeholder {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #4285F4, #34A853);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+        }
+
+        .rating-badge {
+            font-size: 10px;
+            padding: 2px 6px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            color: #666;
+            margin-top: 4px;
+            display: inline-block;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .btn-deny {
+            background-color: #f1f3f4;
+            color: #5f6368;
+            margin-right: 8px;
+        }
+
+        .btn-approve {
+            background-color: #4285F4;
+            color: white;
+        }
+
+        /* Background Shapes */
+        .bg-shape {
+            position: absolute;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Background Decorative Elements -->
+<svg class="bg-shape top-0 left-0 w-full h-full opacity-5" preserveaspectratio="none" viewbox="0 0 100 100">
+<path d="M0 0 L100 0 L100 100 L0 100 Z" fill="#ffffff"></path>
+<circle cx="15" cy="15" fill="#EA4335" r="25"></circle>
+<circle cx="85" cy="85" fill="#4285F4" r="35"></circle>
+</svg>
+<div class="main-content">
+<!-- Left Side: Title & Description -->
+<div class="content-left">
+<div class="mb-8">
+<p class="text-google-red font-bold tracking-wider uppercase text-sm mb-2">ΕΛΕΓΧΟΣ ΠΕΡΙΕΧΟΜΕΝΟΥ</p>
+<h1 class="text-4xl font-black text-gray-800 leading-tight mb-4">Έγκριση Εφαρμογών &amp; Φίλτρα</h1>
+<p class="text-xl text-gray-600 font-light leading-relaxed">
+                        Έχετε τον πλήρη έλεγχο στο τι κατεβάζει το παιδί σας, εγκρίνοντας ή απορρίπτοντας εφαρμογές πριν την εγκατάσταση.
+                    </p>
+</div>
+<div class="feature-card blue">
+<div class="flex items-start">
+<div class="flex-shrink-0 mt-1">
+<div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-google-blue">
+<i class="fas fa-bell text-lg"></i>
+</div>
+</div>
+<div class="ml-4">
+<h3 class="text-lg font-bold text-gray-800 mb-1">Notifications &amp; Εγκρίσεις</h3>
+<p class="text-gray-600 text-sm">
+                                Κάθε φορά που το παιδί θέλει μια νέα εφαρμογή, λαμβάνετε ειδοποίηση στο κινητό σας για να πατήσετε "Έγκριση" ή "Απόρριψη".
+                            </p>
+</div>
+</div>
+</div>
+<div class="feature-card red">
+<div class="flex items-start">
+<div class="flex-shrink-0 mt-1">
+<div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center text-google-red">
+<i class="fas fa-shield-alt text-lg"></i>
+</div>
+</div>
+<div class="ml-4">
+<h3 class="text-lg font-bold text-gray-800 mb-1">Content Ratings</h3>
+<p class="text-gray-600 text-sm">
+                                Ορίστε φίλτρα ηλικίας (PEGI 3, 7, 12, 16, 18) ώστε να μην εμφανίζονται καν στο Play Store εφαρμογές ακατάλληλες για την ηλικία του.
+                            </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Center: Phone Mockup -->
+<div class="phone-center-container">
+<div class="phone-mockup">
+<div class="notch"></div>
+<div class="phone-screen">
+<!-- Status Bar -->
+<div class="flex justify-between px-6 pt-3 pb-2 text-xs font-medium text-gray-900 bg-white">
+<span>10:23</span>
+<div class="flex space-x-1">
+<i class="fas fa-signal"></i>
+<i class="fas fa-wifi"></i>
+<i class="fas fa-battery-full"></i>
+</div>
+</div>
+<!-- App Header -->
+<div class="screen-header">
+<div class="flex items-center justify-between">
+<i class="fas fa-arrow-left text-gray-600"></i>
+<span class="font-bold text-gray-800">Approvals</span>
+<i class="fas fa-search text-gray-600"></i>
+</div>
+</div>
+<!-- App Content -->
+<div class="flex-1 overflow-y-auto bg-gray-50">
+<div class="px-4 py-4">
+<p class="text-xs font-bold text-gray-500 uppercase mb-3 ml-2">Pending Requests</p>
+<!-- Request Card -->
+<div class="app-request-card">
+<div class="flex items-start mb-3">
+<div class="app-icon-placeholder flex-shrink-0">
+<i class="fas fa-rocket"></i>
+</div>
+<div class="ml-3">
+<h4 class="font-bold text-gray-800 text-sm">Space Adventure Pro</h4>
+<div class="flex items-center mt-1">
+<span class="rating-badge">PEGI 7</span>
+</div>
+<p class="text-xs text-gray-500 mt-1">Contains ads • In-app purchases</p>
+</div>
+</div>
+<p class="text-sm text-gray-600 mb-4 bg-blue-50 p-2 rounded text-xs">
+<i class="fas fa-comment-alt text-blue-400 mr-1"></i>
+                                        "Μπαμπά μπορώ να το κατεβάσω; Το έχουν όλοι!"
+                                    </p>
+<div class="flex">
+<div class="action-btn btn-deny">
+<i class="fas fa-times mr-1"></i> Deny
+                                        </div>
+<div class="action-btn btn-approve">
+<i class="fas fa-check mr-1"></i> Approve
+                                        </div>
+</div>
+</div>
+<!-- Approved List -->
+<p class="text-xs font-bold text-gray-500 uppercase mt-6 mb-3 ml-2">Recently Approved</p>
+<div class="bg-white rounded-lg p-3 border border-gray-200 mx-2 flex items-center">
+<div class="w-8 h-8 rounded bg-yellow-400 flex items-center justify-center text-white mr-3">
+<i class="fas fa-book"></i>
+</div>
+<div>
+<h4 class="font-medium text-gray-800 text-sm">Math Kids</h4>
+<p class="text-xs text-green-600">Approved yesterday</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Callout Line -->
+<div class="absolute right-0 top-1/2 w-16 h-px bg-google-blue" style="transform: translate(40%, -40px);"></div>
+<div class="absolute right-0 top-1/2 w-2 h-2 rounded-full bg-google-blue" style="transform: translate(90px, -44px);"></div>
+</div>
+<!-- Right Side: Tips & Info -->
+<div class="content-right">
+<div class="bg-yellow-50 border-l-4 border-google-yellow p-6 rounded-r-lg shadow-sm mb-6">
+<div class="flex items-start">
+<i class="fas fa-lightbulb text-google-yellow mt-1 mr-3 text-xl"></i>
+<div>
+<h4 class="font-bold text-gray-800 mb-1">Γονικό Tip</h4>
+<p class="text-gray-600 text-sm">
+                                Ελέγξτε τις άδειες (permissions) που ζητάει η εφαρμογή πριν την εγκρίνετε (π.χ. πρόσβαση στην κάμερα ή την τοποθεσία).
+                            </p>
+</div>
+</div>
+</div>
+<div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+<h4 class="font-bold text-gray-800 mb-3 flex items-center">
+<i class="fas fa-sliders-h text-gray-400 mr-2"></i>
+                        Επιπλέον Ασφάλεια
+                    </h4>
+<ul class="space-y-4">
+<li class="flex items-start text-gray-600 text-sm">
+<div class="flex-shrink-0 mt-0.5">
+<i class="fas fa-ban text-google-red mr-3"></i>
+</div>
+<div>
+<span class="font-bold block text-gray-800">In-app Purchases</span>
+<span>Μπλοκάρετε τις αγορές μέσα στα παιχνίδια για να αποφύγετε ανεπιθύμητες χρεώσεις στην κάρτα σας.</span>
+</div>
+</li>
+<li class="flex items-start text-gray-600 text-sm">
+<div class="flex-shrink-0 mt-0.5">
+<i class="fab fa-chrome text-google-blue mr-3"></i>
+</div>
+<div>
+<span class="font-bold block text-gray-800">Φίλτρα Chrome</span>
+<span>Αποκλείστε ιστοσελίδες με ακατάλληλο ή βίαιο περιεχόμενο στον browser.</span>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Slide Number -->
+<div class="absolute bottom-4 right-8 text-gray-400 text-xs font-medium">
+            Slide 12 / 15
+        </div>
+</div>
+</body>
+</html>
+

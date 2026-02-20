@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+
+<html lang="el">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Πώς ξεκινάμε (Οι 2 δρόμοι)</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f0f0;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: #ffffff;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        /* Google Colors */
+        .text-google-blue { color: #4285F4; }
+        .text-google-red { color: #EA4335; }
+        .text-google-yellow { color: #FBBC05; }
+        .text-google-green { color: #34A853; }
+        
+        .bg-google-blue { background-color: #4285F4; }
+        .bg-google-red { background-color: #EA4335; }
+        .bg-google-yellow { background-color: #FBBC05; }
+        .bg-google-green { background-color: #34A853; }
+        
+        .border-google-blue { border-color: #4285F4; }
+        .border-google-green { border-color: #34A853; }
+        .border-google-yellow { border-color: #FBBC05; }
+
+        .header-section {
+            padding: 40px 60px 20px 60px;
+        }
+        
+        .content-section {
+            flex: 1;
+            display: flex;
+            padding: 0 60px 30px 60px;
+            gap: 40px;
+            align-items: stretch;
+        }
+
+        .role-card {
+            flex: 1;
+            background-color: #f8f9fa;
+            border-radius: 20px;
+            padding: 30px;
+            position: relative;
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border-top-width: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        
+        .role-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .role-icon-wrapper {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 28px;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .recommended-badge {
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            background-color: #34A853;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            z-index: 20;
+            display: flex;
+            align-items: center;
+        }
+
+        .dot-pattern {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 80px;
+            height: 80px;
+            background-image: radial-gradient(#e0e0e0 2px, transparent 2px);
+            background-size: 10px 10px;
+            opacity: 0.5;
+        }
+
+        .step-number {
+            font-size: 4rem;
+            font-weight: 900;
+            position: absolute;
+            bottom: 10px;
+            right: 20px;
+            color: rgba(0,0,0,0.03);
+            line-height: 1;
+        }
+
+        .advantage-box {
+            background-color: #E8F5E9; /* Light green background */
+            border-left: 4px solid #34A853;
+            padding: 20px;
+            border-radius: 0 12px 12px 0;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Header -->
+<div class="header-section">
+<h1 class="text-4xl font-black text-gray-800 mb-2">Πώς ξεκινάμε (Οι 2 δρόμοι)</h1>
+<p class="text-xl text-gray-500 font-light">Επιλέγοντας τη σωστή μέθοδο εγκατάστασης για την οικογένειά σας</p>
+</div>
+<!-- Main Columns -->
+<div class="content-section">
+<!-- Left Column: Path A -->
+<div class="role-card border-google-blue">
+<div class="dot-pattern"></div>
+<div class="step-number">A</div>
+<div class="role-icon-wrapper bg-google-blue">
+<i class="fas fa-mobile-alt"></i>
+</div>
+<h2 class="text-2xl font-bold text-gray-800 mb-2">Δρόμος Α</h2>
+<h3 class="text-lg font-medium text-google-blue mb-4">Αν το παιδί έχει ήδη κινητό</h3>
+<div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm mb-4 flex-grow">
+<p class="text-gray-600 leading-relaxed">
+                    Προσθέτουμε επίβλεψη σε <strong>υπάρχοντα λογαριασμό</strong> Google που χρησιμοποιεί ήδη το παιδί στη συσκευή του.
+                </p>
+</div>
+<div class="flex items-center text-gray-500 text-sm mt-2">
+<i class="fas fa-info-circle mr-2"></i>
+<p>Απαιτεί έγκριση από τη συσκευή του παιδιού.</p>
+</div>
+</div>
+<!-- Right Column: Path B (Recommended) -->
+<div class="role-card border-google-green transform scale-105 border-2 shadow-lg z-10">
+<div class="recommended-badge">
+<i class="fas fa-star mr-2"></i> Προτεινόμενος
+            </div>
+<div class="dot-pattern"></div>
+<div class="step-number">B</div>
+<div class="role-icon-wrapper bg-google-green">
+<i class="fas fa-gift"></i>
+</div>
+<h2 class="text-2xl font-bold text-gray-800 mb-2">Δρόμος Β</h2>
+<h3 class="text-lg font-medium text-google-green mb-4">Νέα συσκευή / Νέος λογαριασμός</h3>
+<div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm mb-4 flex-grow">
+<p class="text-gray-600 leading-relaxed">
+                    Δημιουργούμε το email του παιδιού μέσα από την εφαρμογή Family Link ή κατά το <strong>πρώτο άνοιγμα</strong> (setup) του νέου κινητού.
+                </p>
+</div>
+<div class="flex items-center text-gray-500 text-sm mt-2">
+<i class="fas fa-check-double text-google-green mr-2"></i>
+<p>Η πιο καθαρή μέθοδος εγκατάστασης.</p>
+</div>
+</div>
+</div>
+<!-- Footer: Advantage Info -->
+<div class="px-16 pb-8">
+<div class="bg-white border border-gray-200 rounded-xl p-6 flex items-center shadow-md">
+<div class="bg-green-100 text-google-green p-4 rounded-full mr-6">
+<i class="fas fa-thumbs-up text-2xl"></i>
+</div>
+<div class="flex-1">
+<h3 class="text-lg font-bold text-gray-800 mb-1">Γιατί προτείνουμε τον Δρόμο Β;</h3>
+<p class="text-gray-600">
+                    Η σύνδεση γίνεται <strong>"καθαρά"</strong> και χωρίς σφάλματα συγχρονισμού, καθώς οι ρυθμίσεις εφαρμόζονται από την αρχή στο λειτουργικό σύστημα.
+                </p>
+</div>
+</div>
+</div>
+<!-- Slide Number -->
+<div class="absolute bottom-4 right-8 text-gray-400 text-xs font-medium">
+        Slide 5 / 15
+    </div>
+</div>
+</body>
+</html>

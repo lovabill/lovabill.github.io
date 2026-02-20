@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+
+<html lang="el">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Άμεσο Κλείδωμα (Lock Now)</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f0f0;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: #ffffff;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        /* Google Colors */
+        .text-google-blue { color: #4285F4; }
+        .text-google-red { color: #EA4335; }
+        .text-google-yellow { color: #FBBC05; }
+        .text-google-green { color: #34A853; }
+        .bg-google-blue { background-color: #4285F4; }
+        .bg-google-red { background-color: #EA4335; }
+        .bg-google-yellow { background-color: #FBBC05; }
+        .bg-google-green { background-color: #34A853; }
+        
+        .main-content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            padding: 40px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Left Side Content */
+        .content-left {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-right: 40px;
+        }
+
+        /* Right Side Content */
+        .content-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-left: 40px;
+        }
+
+        /* Phone Mockup Center */
+        .phone-center-container {
+            width: 320px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .phone-mockup {
+            width: 300px;
+            height: 600px;
+            background-color: #333;
+            border-radius: 35px;
+            padding: 10px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            position: relative;
+            z-index: 20;
+            border: 4px solid #444;
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            border-radius: 28px;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 25px;
+            background-color: #333;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            z-index: 30;
+        }
+
+        /* Feature Cards */
+        .feature-card {
+            background-color: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border-left: 5px solid;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card.blue { border-left-color: #4285F4; }
+        .feature-card.green { border-left-color: #34A853; }
+        .feature-card.yellow { border-left-color: #FBBC05; }
+        .feature-card.red { border-left-color: #EA4335; }
+
+        /* Screen UI Elements */
+        .screen-header {
+            padding: 40px 20px 20px;
+            background-color: #fff;
+        }
+        
+        .lock-btn {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background-color: #4285F4;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            box-shadow: 0 10px 25px rgba(66, 133, 244, 0.4);
+            margin: 40px auto;
+            position: relative;
+            transition: transform 0.2s;
+        }
+        
+        .lock-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .lock-btn i {
+            font-size: 40px;
+            margin-bottom: 8px;
+        }
+        
+        .lock-btn span {
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        .device-status {
+            text-align: center;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 12px;
+            margin: 0 20px;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background-color: #e6f4ea;
+            color: #34A853;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .status-badge.locked {
+            background-color: #fce8e6;
+            color: #EA4335;
+        }
+
+        /* Background Shapes */
+        .bg-shape {
+            position: absolute;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Background Decorative Elements -->
+<svg class="bg-shape top-0 left-0 w-full h-full opacity-5" preserveaspectratio="none" viewbox="0 0 100 100">
+<path d="M0 0 L100 0 L100 100 L0 100 Z" fill="#ffffff"></path>
+<circle cx="10" cy="10" fill="#EA4335" r="20"></circle>
+<circle cx="90" cy="90" fill="#4285F4" r="30"></circle>
+</svg>
+<div class="main-content">
+<!-- Left Side: Title & Description -->
+<div class="content-left">
+<div class="mb-8">
+<p class="text-google-red font-bold tracking-wider uppercase text-sm mb-2">ΕΚΤΑΚΤΕΣ ΠΕΡΙΠΤΩΣΕΙΣ</p>
+<h1 class="text-4xl font-black text-gray-800 leading-tight mb-4">Άμεσο Κλείδωμα (Lock Now)</h1>
+<p class="text-xl text-gray-600 font-light leading-relaxed">
+                        Για τις στιγμές που η συζήτηση δεν αποδίδει ή όταν χρειάζεται άμεση διακοπή της χρήσης (π.χ. ώρα φαγητού ή μελέτης).
+                    </p>
+</div>
+<div class="feature-card blue">
+<div class="flex items-start">
+<div class="flex-shrink-0 mt-1">
+<div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-google-blue">
+<i class="fas fa-hand-pointer text-lg"></i>
+</div>
+</div>
+<div class="ml-4">
+<h3 class="text-lg font-bold text-gray-800 mb-1">Ένα Πάτημα</h3>
+<p class="text-gray-600 text-sm">
+                                Με ένα απλό πάτημα στην οθόνη του γονέα, η συσκευή του παιδιού κλειδώνει αμέσως και σταματάει κάθε δραστηριότητα.
+                            </p>
+</div>
+</div>
+</div>
+<div class="feature-card red">
+<div class="flex items-start">
+<div class="flex-shrink-0 mt-1">
+<div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center text-google-red">
+<i class="fas fa-exclamation-triangle text-lg"></i>
+</div>
+</div>
+<div class="ml-4">
+<h3 class="text-lg font-bold text-gray-800 mb-1">Χρήση με Μέτρο</h3>
+<p class="text-gray-600 text-sm">
+                                Tip: Χρησιμοποιήστε το με μέτρο για να μην προκαλέσετε αντίδραση. Καλύτερα να λειτουργεί ως συνέπεια μιας προηγούμενης συμφωνίας.
+                            </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Center: Phone Mockup -->
+<div class="phone-center-container">
+<div class="phone-mockup">
+<div class="notch"></div>
+<div class="phone-screen">
+<!-- Status Bar -->
+<div class="flex justify-between px-6 pt-3 pb-2 text-xs font-medium text-gray-900">
+<span>19:30</span>
+<div class="flex space-x-1">
+<i class="fas fa-signal"></i>
+<i class="fas fa-wifi"></i>
+<i class="fas fa-battery-full"></i>
+</div>
+</div>
+<!-- App Header -->
+<div class="screen-header border-b border-gray-100">
+<div class="flex items-center justify-between mb-4">
+<i class="fas fa-arrow-left text-gray-600"></i>
+<span class="font-bold text-gray-800">Child's Device</span>
+<i class="fas fa-ellipsis-v text-gray-600"></i>
+</div>
+<div class="flex items-center justify-center">
+<div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 font-bold mr-3 text-xl">
+                                    N
+                                </div>
+<div class="flex flex-col">
+<span class="font-bold text-gray-800 text-lg">Nikos</span>
+<span class="text-xs text-gray-500">Samsung Galaxy Tab</span>
+</div>
+</div>
+</div>
+<!-- App Content -->
+<div class="flex-1 overflow-y-auto bg-white flex flex-col items-center pt-8">
+<div class="device-status">
+<span class="status-badge">UNLOCKED</span>
+<p class="text-gray-500 text-sm mt-1">Device is currently active</p>
+</div>
+<!-- Big Blue Button -->
+<div class="lock-btn cursor-pointer">
+<i class="fas fa-lock"></i>
+<span>Lock Now</span>
+</div>
+<div class="px-8 text-center text-gray-400 text-xs">
+                                Tap to instantly lock this device until you unlock it or until 7:00 AM tomorrow.
+                            </div>
+<div class="mt-8 w-full border-t border-gray-100 p-6">
+<div class="flex justify-between items-center mb-4">
+<div class="flex items-center">
+<div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-600 mr-3">
+<i class="fas fa-clock"></i>
+</div>
+<span class="text-gray-700 font-medium">Daily Limit</span>
+</div>
+<span class="text-gray-500">2h 15m left</span>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center">
+<div class="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 mr-3">
+<i class="fas fa-moon"></i>
+</div>
+<span class="text-gray-700 font-medium">Bedtime</span>
+</div>
+<span class="text-gray-500">9:00 PM</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Callout Line for Lock Button -->
+<div class="absolute right-0 bottom-1/2 w-20 h-px bg-google-red" style="transform: translateY(20px);"></div>
+<div class="absolute right-0 bottom-1/2 w-2 h-2 rounded-full bg-google-red" style="transform: translate(90px, 20px);"></div>
+</div>
+<!-- Right Side: Tips & Info -->
+<div class="content-right">
+<div class="bg-blue-50 border-l-4 border-google-blue p-6 rounded-r-lg shadow-sm mb-6">
+<div class="flex items-start">
+<i class="fas fa-info-circle text-google-blue mt-1 mr-3 text-xl"></i>
+<div>
+<h4 class="font-bold text-gray-800 mb-1">Τι βλέπει το παιδί;</h4>
+<p class="text-gray-600 text-sm">
+                                Η οθόνη του παιδιού κλειδώνει και εμφανίζει το μήνυμα "Time for a break" ή "Bedtime". Μπορούν μόνο να κάνουν κλήσεις ανάγκης.
+                            </p>
+</div>
+</div>
+</div>
+<div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+<h4 class="font-bold text-gray-800 mb-3 flex items-center">
+<i class="fas fa-magic text-gray-400 mr-2"></i>
+                        Πότε να το χρησιμοποιείτε
+                    </h4>
+<ul class="space-y-3">
+<li class="flex items-center text-gray-600 text-sm">
+<i class="fas fa-utensils text-google-yellow mr-3"></i>
+<span>Ώρα οικογενειακού φαγητού</span>
+</li>
+<li class="flex items-center text-gray-600 text-sm">
+<i class="fas fa-book-reader text-google-blue mr-3"></i>
+<span>Ώρα για διάβασμα / μελέτη</span>
+</li>
+<li class="flex items-center text-gray-600 text-sm">
+<i class="fas fa-bed text-purple-500 mr-3"></i>
+<span>Όταν αργούν να κοιμηθούν</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Slide Number -->
+<div class="absolute bottom-4 right-8 text-gray-400 text-xs font-medium">
+            Slide 13 / 15
+        </div>
+
+</body>
+</html>
